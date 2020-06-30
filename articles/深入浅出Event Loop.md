@@ -92,7 +92,7 @@ div.style.display = "none";
 
 事实上，你完全可以放心，上述的情况是一定不会发生的，因为浏览器严格规定了各部门执行任务的先后顺序，而这，全要归功于Event Loop。
 
-![图源自JSCONF2018中关于Event Loop演讲上的配图](../images/深入浅出Event Loop/01.png)
+![图源自JSCONF2018中关于Event Loop演讲上的配图](https://raw.githubusercontent.com/guapi233/Blog/master/images/深入浅出Event%20Loop/01.png)
 
 上面这个图就是Event Loop的可视化，中间的小白点是当前正在执行的任务，左侧是执行js代码的区域，右侧是关于UI渲染的阶段。默认情况下，也就是同时没有js和UI相关任务需要执行，图中的两个阀门会闭合，Event Loop会以最节省资源的方式在中间转圈，如果有需要执行的js代码，左侧的阀门就会打开并在缺口处填上需要执行的js内容，小白点就会进入到左侧的半圆中进行js相关任务的执行。
 
@@ -128,7 +128,7 @@ document.onclick = function () {
 
 这是因为while循环是同步js代码，并且它会一直的执行下去，这样就会将小白点卡在js执行阶段，无法去执行UI渲染，所以你就会觉得页面卡住了。
 
-![小白点会一直在这里卡着，直到耗尽你的资源](C:\Users\Mob\Desktop\Blog\images\深入浅出Event Loop\02.png)
+![小白点会一直在这里卡着，直到耗尽你的资源](https://raw.githubusercontent.com/guapi233/Blog/master/images/深入浅出Event%20Loop/02.png)
 
 那么如果是这种代码呢？
 
@@ -146,7 +146,7 @@ function loop() {
 
 这其实就是因为宏队列中的任务 Event Loop 一次只能拿一个出来执行，所以在执行完一个`setTimeout`后，小白点就会被释放，前往右半边去执行UI渲染，而下一个`setTimeout`就要等到小白点再从UI那里绕回来后再执行。
 
-![](C:\Users\Mob\Desktop\Blog\images\深入浅出Event Loop\03.gif)
+![](https://raw.githubusercontent.com/guapi233/Blog/master/images/深入浅出Event%20Loop/03.gif)
 
 
 
@@ -312,7 +312,7 @@ nextClick.then(event => {
 
 从上面的绘制过程中可以看出，屏幕没有更新left=2px的那一帧画面，图像直接从1px的位置跳到了3px的的位置，这就是丢帧现象，这种现象就会引起动画卡顿。
 
-![因为丢帧所以跑得飞快的setTimeout](C:\Users\Mob\Desktop\Blog\images\深入浅出Event Loop\04.gif)
+![因为丢帧所以跑得飞快的setTimeout](https://raw.githubusercontent.com/guapi233/Blog/master/images/深入浅出Event%20Loop/04.gif)
 
 
 
@@ -320,7 +320,7 @@ nextClick.then(event => {
 
 导致问题出现的原因是我们不清楚不同设备下，浏览器会以最大多少速度的刷新率来进行UI渲染，那么`requestAnimationFrame`是怎么做的呢，其实很简单，浏览器在Event Loop新开辟了一段固定执行区域，用来统计本次UI渲染需要执行的DOM操作，并且会在本次UI渲染之前这些任务完成，这段区域在这：
 
-![右边黄色的那段，于UI渲染前执行](C:\Users\Mob\Desktop\Blog\images\深入浅出Event Loop\05.png)
+![右边黄色的那段，于UI渲染前执行](https://raw.githubusercontent.com/guapi233/Blog/master/images/深入浅出Event%20Loop/05.png)
 
 我们在上面提到过`requestAnimationFrame`是一种特殊的宏任务，它的特殊性主要有两点：
 
@@ -450,7 +450,7 @@ jake本人给出了他的答案：使用`requestAnimationFrame`，只需要将`5
 
 ## Node中的Event Loop
 
-![Node的Event Loop是依靠libuv实现的](C:\Users\Mob\Desktop\Blog\images\深入浅出Event Loop\06.png)
+![Node的Event Loop是依靠libuv实现的](https://raw.githubusercontent.com/guapi233/Blog/master/images/深入浅出Event%20Loop/06.png)
 
 在Node中，由于和浏览器的执行环境不同，做得事情也有些不同，所以Node的Event Loop和浏览器中的Event Loop也不尽相同。
 
@@ -458,7 +458,7 @@ jake本人给出了他的答案：使用`requestAnimationFrame`，只需要将`5
 
 ### Node中的宏队列与微队列
 
-![](C:\Users\Mob\Desktop\Blog\images\深入浅出Event Loop\07.png)
+![](https://raw.githubusercontent.com/guapi233/Blog/master/images/深入浅出Event%20Loop/07.png)
 
 Node和浏览器不一样，浏览器只有一个宏队列，而Node有6个，它们会按照顺序不断循环执行，每个阶段的宏任务为：
 
