@@ -92,7 +92,7 @@ div.style.display = "none";
 
 事实上，你完全可以放心，上述的情况是一定不会发生的，因为浏览器严格规定了各部门执行任务的先后顺序，而这，全要归功于Event Loop。
 
-![图源自JSCONF2018中关于Event Loop演讲上的配图](C:\Users\Mob\Desktop\Blog\images\深入浅出Event Loop\01.png)
+![图源自JSCONF2018中关于Event Loop演讲上的配图](../images/深入浅出Event Loop/01.png)
 
 上面这个图就是Event Loop的可视化，中间的小白点是当前正在执行的任务，左侧是执行js代码的区域，右侧是关于UI渲染的阶段。默认情况下，也就是同时没有js和UI相关任务需要执行，图中的两个阀门会闭合，Event Loop会以最节省资源的方式在中间转圈，如果有需要执行的js代码，左侧的阀门就会打开并在缺口处填上需要执行的js内容，小白点就会进入到左侧的半圆中进行js相关任务的执行。
 
