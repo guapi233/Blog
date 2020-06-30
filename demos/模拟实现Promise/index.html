@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <p>aa</p>
+  </body>
+  <script src="./lib/promise2.js"></script>
+  <script>
+    // let asyncCode = new Promise((resolve, reject) => {
+    //   setTimeout(() => {
+    //     // 这里的失败态会调用第一个then方法中的onRejected()
+    //     reject(1);
+    //   });
+    // });
+
+    // asyncCode.then(
+    //   (value) => {
+    //     // 不会执行
+    //     console.log(e);
+    //   },
+    //   (reason) => {
+    //     // 我们覆盖了onRejected的默认行为，但是我们主动抛出了异常
+    //     throw reason;
+    //   }
+    // ).then(
+    //     (value) => {
+    //       // 这里的代码同样不会执行
+    //     },
+    //     (reason) => {
+    //       // 我们在这里对拿到的拒因进行了操作，并且这段代码不会抛出异常（尽管它看起来很蠢）
+    //       console.log(reason + "2"); // 输出："12"
+    //     }
+    //   )
+    //   .catch((e) => {
+    //     // 所以这里的代码是不会执行的，因为上面的onRejected()执行结果（返回值）为undefined
+    //     console.log(e + 1);
+    //   });
+
+      Promise.reject(1).finally(p => {
+        console.log(p)
+      }).then(e => {
+        console.log(e)
+      }, 
+      v => {
+        console.log(v+1)
+      })
+  </script>
+</html>
