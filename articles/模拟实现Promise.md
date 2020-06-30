@@ -2,7 +2,7 @@
 
 Promise是ES2015中加入Javascript的一个相当受欢迎的特性，目的是为了解决js中令人厌恶的异步方式。Promise/A+是规定Promise的范文，这篇文章会通过Promise/A+规范，来模拟实现一个Promise，并借此来更深入的了解关于Promise的繁枝细节。
 
-文章中的代码可以在[这里](https://github.com/guapi233/little-demo/tree/master/custom-Promise)获取。
+文章中的代码可以在[这里](https://github.com/guapi233/Blog/tree/master/demos/%E6%A8%A1%E6%8B%9F%E5%AE%9E%E7%8E%B0Promise)获取。
 
 
 
