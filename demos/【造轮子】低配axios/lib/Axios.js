@@ -57,4 +57,25 @@ class Axios {
   }
 }
 
+["get", "head", "delete", "options"].forEach((method) => {
+  Axios.prototype[method] = function (url, config) {
+    return this.request({
+      url,
+      method,
+      ...config,
+    });
+  };
+});
+
+["post", "put", "patch"].forEach((method) => {
+  Axios.prototype[method] = function (url, data, config) {
+    return this.request({
+      url,
+      method,
+      data,
+      ...config,
+    });
+  };
+});
+
 module.exports = Axios;

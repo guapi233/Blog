@@ -12,7 +12,7 @@ function getDefaultAdapter() {
     Object.prototype.toString.call(process) === "[object process]"
   ) {
     // 在Node中使用http适配器（未实现）
-    adapter = require("./lib/httpAdapter");
+    // adapter = require("./lib/httpAdapter");
   }
   return adapter;
 }

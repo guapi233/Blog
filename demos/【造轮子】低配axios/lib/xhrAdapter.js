@@ -48,6 +48,29 @@ module.exports = function xhrAdapter(config) {
       request = null;
     };
 
+    // 监听中断
+    request.onabort = function () {
+      if (!request) return;
+
+      let err = new Error(`请求中断了`);
+
+      reject(err);
+
+      request = null;
+    };
+
+    // 如果绑定了CancelToken，则创建中断Promise的then函数
+    if (config.cancelToken) {
+      config.cancelToken.promise.then((message) => {
+        if (!request) return;
+
+        request.abort();
+        reject(message);
+
+        request = null;
+      });
+    }
+
     // 发送请求
     request.send(requestData);
   });
