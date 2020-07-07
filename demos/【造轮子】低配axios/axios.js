@@ -22,7 +22,7 @@ function createInstance(defaultConfig) {
   });
 
   Reflect.ownKeys(context).forEach((key) => {
-    if (typeof Axios.prototype[key] === "function") {
+    if (typeof context[key] === "function") {
       instance[key] = context[key].bind(context);
     } else {
       instance[key] = context[key];
