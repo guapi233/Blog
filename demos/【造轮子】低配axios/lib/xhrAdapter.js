@@ -7,7 +7,7 @@ module.exports = function xhrAdapter(config) {
     let request = new XMLHttpRequest();
 
     // 初始化XHR请求对象
-    request.open(config.method.toUpperCase(), config.url, true);
+    request.open(config.method.toUpperCase(), buildUrl(config), true);
 
     // 将config的配置应用于request身上
     request.timeout = config.timeout;
@@ -75,3 +75,7 @@ module.exports = function xhrAdapter(config) {
     request.send(requestData);
   });
 };
+
+function buildUrl(config) {
+  return config.baseUrl ? config.baseUrl + config.url : config.url;
+}

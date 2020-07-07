@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script src="./axios.js"></script>
+  <script>
+    // axios.interceptors.request.use((config) => {
+    //   config.baseUrl = "http://localhost:3000";
+    //   console.log(config);
+
+    //   return config;
+    // });
+
+    // console.log(axios.interceptors);
+
+    axios.defaults.baseUrl = "http://localhost:1000";
+    axios({
+      method: "get",
+      url: "/post",
+    }).then((val) => {
+      console.log(val);
+    });
+
+    // axios.get("/axios.js").then((val) => {
+    //   console.log(val);
+    // });
+
+    let instance = axios.create({
+      baseUrl: "http://localhost:3000",
+    });
+
+    instance.interceptors.request.use((config) => {
+      console.log("1");
+
+      return config;
+    });
+
+    instance.interceptors.response.use((val) => {
+      console.log("2");
+
+      return val;
+    });
+
+    instance.get("/axios.js").then((val) => {
+      console.log("?");
+      console.log(val);
+    });
+  </script>
+</html>
