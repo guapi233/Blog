@@ -26,7 +26,6 @@ function createInstance(defaultConfig) {
       instance[key] = context[key].bind(context);
     } else {
       instance[key] = context[key];
-      console.log(instance, key);
     }
   });
 
