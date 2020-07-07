@@ -28,6 +28,12 @@ class Axios {
       config = config || {};
     }
 
+    // 合并配置项
+    for (let key in config) {
+      this.defaults[key] = config[key];
+    }
+    config = this.defaults;
+
     // 设置请求方式
     if (config.method) {
       config.method = config.method.toLowerCase();
