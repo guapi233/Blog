@@ -7,12 +7,10 @@ class InterceptorManager {
   }
 
   use(onResolved, onRejected) {
-    this.handlers.push[
-      {
-        onResolved,
-        onRejected,
-      }
-    ];
+    this.handlers.push({
+      onResolved,
+      onRejected,
+    });
   }
 
   forEach(fn) {
