@@ -23,9 +23,10 @@ function createInstance(defaultConfig) {
 
   Reflect.ownKeys(context).forEach((key) => {
     if (typeof Axios.prototype[key] === "function") {
-      instance[key] = Axios.prototype[key].bind(context);
+      instance[key] = context[key].bind(context);
     } else {
-      instance[key] = Axios.prototype[key];
+      instance[key] = context[key];
+      console.log(instance, key);
     }
   });
 
@@ -57,3 +58,9 @@ axios.create = function (instanceConfig) {
 };
 
 module.exports = axios;
+
+try {
+  if (window) {
+    window.axios = axios;
+  }
+} catch (e) {}
