@@ -1,5 +1,6 @@
 const Axios = require("./lib/Axios");
 const defaults = require("./defaults");
+const CancelToken = require("./lib/CancelToken");
 
 /**
  * 基于Axios.prototype.request创建一个函数，该函数作为Axios的实例来使用
@@ -55,6 +56,8 @@ axios.create = function (instanceConfig) {
 
   return createInstance(config);
 };
+
+axios.CancelToken = CancelToken;
 
 module.exports = axios;
 

@@ -16,15 +16,19 @@
     // });
 
     // console.log(axios.interceptors);
-
+    let cancel = null;
     axios.defaults.baseUrl = "http://localhost:1000";
     axios({
       method: "get",
       url: "/post",
+      cancelToken: new axios.CancelToken((e) => {
+        cancel = e;
+      }),
     }).then((val) => {
       console.log(val);
     });
 
+    document.onclick = cancel;
     // axios.get("/axios.js").then((val) => {
     //   console.log(val);
     // });
