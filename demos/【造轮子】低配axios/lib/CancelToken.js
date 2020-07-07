@@ -22,3 +22,5 @@ class CancelToken {
     });
   }
 }
+
+module.exports = CancelToken;
