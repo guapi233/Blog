@@ -17,7 +17,10 @@ class CancelToken {
 
     // 调用执行器
     executor((message) => {
-      if (this.reason) this.reason = message;
+      // 只能中断一次
+      if (this.reason) return;
+
+      this.reason = message || "";
       resolvePromise(this.reason);
     });
   }
