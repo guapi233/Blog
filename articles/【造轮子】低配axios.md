@@ -1,6 +1,6 @@
 # 【造轮子】低配axios
 
-😁：文章请结合[案例](https://github.com/guapi233/Blog/tree/master/demos/[造轮子]低配axios)食用。
+😁：文章请结合[案例](https://github.com/guapi233/Blog/tree/master/demos/%E3%80%90%E9%80%A0%E8%BD%AE%E5%AD%90%E3%80%91%E4%BD%8E%E9%85%8Daxios)食用。
 
 axios是一个基于promise的HTTP库，它的特性包括：
 
