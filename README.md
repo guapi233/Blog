@@ -10,4 +10,5 @@
 
 * [模拟实现Promise/A+](https://github.com/guapi233/Blog/issues/1)
 * [深入浅出Event Loop](https://github.com/guapi233/Blog/issues/2)
+* [【造轮子】低配axios](https://github.com/guapi233/Blog/issues/3)
 
