@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <h2>{{ person.name }} -- {{ person.age }}</h2>
+      <h3>{{ person.fav }}</h3>
+      <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+      </ul>
+      <h3>{{ msg }}</h3>
+      <div v-text="msg"></div>
+      <div v-html="htmlStr"></div>
+      <input type="text" v-model="msg" />
+      <button v-on:click="showTime">Show Time</button>
+      <button @click="showTime">Show Time</button>
+    </div>
+  </body>
+  <script src="./响应式原理.js"></script>
+  <script>
+    const vm = new CVue({
+      el: "#app",
+      data: {
+        person: {
+          name: "崔永杰",
+          age: 20,
+          fav: "男",
+        },
+        msg: "加油，奋斗",
+        htmlStr: "<h1>我是标题</h1>",
+      },
+      methods: {
+        showTime() {
+          alert(Date.now());
+        },
+      },
+    });
+    console.log(vm);
+  </script>
+</html>
