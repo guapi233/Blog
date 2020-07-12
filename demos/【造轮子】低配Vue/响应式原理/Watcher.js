@@ -1,3 +1,8 @@
+/**
+ * Watcher类 用于监听数据变化并执行传入的回调函数
+ *
+ * 引用了：Dep from "./Dep.js" Watcher管理相关代码
+ */
 class Watcher {
   constructor(vm, expr, cb) {
     this.vm = vm;

@@ -1,3 +1,9 @@
+/**
+ * CVue类
+ *
+ * 引用了：Observer from "./Observer.js"    数据观察者相关代码
+ * 引用了：Compile from "./Compile.js"      指令解析器相关代码
+ */
 class CVue {
   constructor(options) {
     this.$el = options.el;

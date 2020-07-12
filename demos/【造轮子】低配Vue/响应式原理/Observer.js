@@ -1,3 +1,8 @@
+/**
+ * Observer类 监听数据变化的入口
+ *
+ * 引用了：Dep from "./Dep.js" Watcher管理相关代码
+ */
 class Observer {
   constructor(data) {
     this.observer(data);

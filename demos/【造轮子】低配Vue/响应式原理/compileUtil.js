@@ -1,3 +1,8 @@
+/**
+ * compileUtil对象 管理编译指令的工具方法
+ *
+ * 引用了：Watcher from "./Watcher.js" 数据观察者相关代码
+ */
 const compileUtil = {
   getVal(expr, vm) {
     return expr.split(".").reduce((data, currentKey) => {

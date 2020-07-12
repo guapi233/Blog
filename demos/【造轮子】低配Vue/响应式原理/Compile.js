@@ -1,3 +1,8 @@
+/**
+ * Compile类 用于解析指令，并根据指令内容执行操作
+ *
+ * 引用了：compileUtil from "./compileUtil.js" 解析工具
+ */
 class Compile {
   constructor(el, vm) {
     this.el = this.isEle(el) ? el : document.querySelector(el);
