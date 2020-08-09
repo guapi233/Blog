@@ -17,6 +17,7 @@ class CVue {
       new Compile(this.$el, this);
       // 代理数据
       this.proxyData(this.$data);
+      this.proxyData(this.$options.methods);
     }
   }
 

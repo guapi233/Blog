@@ -7,7 +7,7 @@
   </head>
   <body>
     <div id="app">
-      <h2>{{ person.name }} -- {{ person.age }}</h2>
+      <div><h2 ref="aa">{{ person.name }} -- {{ person.age }}</h2></div>
       <h3>{{ person.fav }}</h3>
       <ul>
         <li>1</li>
@@ -25,14 +25,16 @@
       ></div>
     </div>
   </body>
-  <script src="./Dep.js"></script>
+  <!-- <script src="./Dep.js"></script>
   <script src="./Watcher.js"></script>
   <script src="./compileUtil.js"></script>
   <script src="./Compile.js"></script>
   <script src="./Observer.js"></script>
-  <script src="./CVue.js"></script>
+  <script src="./CVue.js"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script>
-    const vm = new CVue({
+    let a = document.querySelector("#aa");
+    const vm = new Vue({
       el: "#app",
       data: {
         person: {
@@ -45,7 +47,8 @@
       },
       methods: {
         showTime() {
-          alert(Date.now());
+          this.person.name = "存储";
+          console.log(this.$refs.aa.innerHTML);
         },
       },
     });

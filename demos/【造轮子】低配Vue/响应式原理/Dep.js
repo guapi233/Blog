@@ -12,6 +12,9 @@ class Dep {
   }
 
   notify() {
-    this.subs.forEach((w) => w.update());
+    this.subs.forEach((w) => {
+      w.update();
+      console.log("我更新了");
+    });
   }
 }
