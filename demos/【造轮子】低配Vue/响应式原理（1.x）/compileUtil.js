@@ -28,6 +28,7 @@ const compileUtil = {
     let value;
     // 处理{{}}插值或v-text插值
     if (expr.startsWith("{{") && expr.endsWith("}}")) {
+      debugger;
       value = expr.replace(/\{\{(.+?)\}\}/g, (...args) => {
         new Watcher(vm, args[1].trim(), (newVal) => {
           this.updaters.textUpdater(node, this.getContent(expr, vm));
