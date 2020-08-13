@@ -23,3 +23,4 @@
 ## 实践相关
 
 * [【01】Vue-cli4.x配置代理](https://github.com/guapi233/Blog/issues/5)
+* [【02】使用nvm切换node版本](https://github.com/guapi233/Blog/issues/6)
