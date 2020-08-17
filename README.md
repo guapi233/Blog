@@ -25,3 +25,4 @@
 * [【01】Vue-cli4.x配置代理](https://github.com/guapi233/Blog/issues/5)
 * [【02】使用nvm切换node版本](https://github.com/guapi233/Blog/issues/6)
 * [【03】通过js为css属性添加合适的prefix](https://github.com/guapi233/Blog/issues/7)
+* [【04】 修改git的commit的注释信息](https://github.com/guapi233/Blog/issues/8)
