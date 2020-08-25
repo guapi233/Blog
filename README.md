@@ -32,3 +32,4 @@
 ## 力扣
 
 * [【1】两数之和](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%901%E3%80%91两数之和)
+* [【2】两数相加](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%902%E3%80%91两数相加)
