@@ -1,6 +1,6 @@
 # 回文数
 
-[题目编号-9]
+[题目编号-9](https://leetcode-cn.com/problems/palindrome-number/solution/hui-wen-shu-by-leetcode-solution/)
 
 
 
