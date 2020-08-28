@@ -36,3 +36,4 @@
 * [【3】无重复字符的最长子串](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%903%E3%80%91%E6%97%A0%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E4%B8%B2)
 * [【7】整数反转](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%907%E3%80%91%E6%95%B4%E6%95%B0%E5%8F%8D%E8%BD%AC)
 * [【9】回文数](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%909%E3%80%91%E5%9B%9E%E6%96%87%E6%95%B0)
+* [【14】最长公共前缀](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%9014%E3%80%91%E6%9C%80%E9%95%BF%E5%85%AC%E5%85%B1%E5%89%8D%E7%BC%80)
