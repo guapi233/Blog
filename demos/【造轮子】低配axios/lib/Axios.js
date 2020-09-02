@@ -29,7 +29,8 @@ class Axios {
     }
 
     // 合并配置项
-    this.defaults = { ...this.defaults };
+    this.defaults = { ...this.defaults }; // 重置defaults配置，否则会导致多个axios对象请求时config覆盖问题
+
     for (let key in config) {
       this.defaults[key] = config[key];
     }
@@ -84,5 +85,9 @@ class Axios {
     });
   };
 });
+
+Axios.prototype.all = function (axiosItems) {
+  return Promise.all(axiosItems);
+};
 
 module.exports = Axios;
