@@ -29,6 +29,7 @@ class Axios {
     }
 
     // 合并配置项
+    this.defaults = { ...this.defaults };
     for (let key in config) {
       this.defaults[key] = config[key];
     }
