@@ -17,41 +17,44 @@
 
     // console.log(axios.interceptors);
     let cancel = null;
-    axios.defaults.baseUrl = "http://localhost:1000";
-    axios({
-      method: "get",
-      url: "/post",
-      cancelToken: new axios.CancelToken((e) => {
-        cancel = e;
-      }),
-    }).then((val) => {
-      console.log(val);
-    });
-
-    document.onclick = cancel;
-    // axios.get("/axios.js").then((val) => {
+    axios.defaults.baseUrl = "http://localhost:9999";
+    // axios({
+    //   method: "get",
+    //   url: "/post",
+    //   cancelToken: new axios.CancelToken((e) => {
+    //     cancel = e;
+    //   }),
+    // }).then((val) => {
     //   console.log(val);
     // });
 
-    let instance = axios.create({
-      baseUrl: "http://localhost:3000",
-    });
+    // document.onclick = cancel;
+    let a = axios.get("/tt");
+    let b = axios.get("/bb");
 
-    instance.interceptors.request.use((config) => {
-      console.log("1");
-
-      return config;
-    });
-
-    instance.interceptors.response.use((val) => {
-      console.log("2");
-
-      return val;
-    });
-
-    instance.get("/axios.js").then((val) => {
-      console.log("?");
+    axios.all([a, b]).then((val) => {
       console.log(val);
     });
+
+    // let instance = axios.create({
+    //   baseUrl: "http://localhost:3000",
+    // });
+
+    // instance.interceptors.request.use((config) => {
+    //   console.log("1");
+
+    //   return config;
+    // });
+
+    // instance.interceptors.response.use((val) => {
+    //   console.log("2");
+
+    //   return val;
+    // });
+
+    // instance.get("/axios.js").then((val) => {
+    //   console.log("?");
+    //   console.log(val);
+    // });
   </script>
 </html>
