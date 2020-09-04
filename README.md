@@ -41,5 +41,6 @@
 * [【14】最长公共前缀](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%9014%E3%80%91%E6%9C%80%E9%95%BF%E5%85%AC%E5%85%B1%E5%89%8D%E7%BC%80)
 * [【20】有效的括号](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%9020%E3%80%91%E6%9C%89%E6%95%88%E7%9A%84%E6%8B%AC%E5%8F%B7)
 * [【21】合并两个有序链表](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%9021%E3%80%91%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%9C%89%E5%BA%8F%E9%93%BE%E8%A1%A8)
+* [【26】删除排序数组中的重复项](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%9026%E3%80%91%E5%88%A0%E9%99%A4%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E9%A1%B9)
 * [【88】合并两个有序数组](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%9088%E3%80%91%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84)
 
