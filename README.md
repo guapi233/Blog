@@ -26,6 +26,7 @@
 * [【02】使用nvm切换node版本](https://github.com/guapi233/Blog/issues/6)
 * [【03】通过js为css属性添加合适的prefix](https://github.com/guapi233/Blog/issues/7)
 * [【04】 修改git的commit的注释信息](https://github.com/guapi233/Blog/issues/8)
+* [【05】Vue深度选择器](https://github.com/guapi233/Blog/issues/9)
 
 
 
