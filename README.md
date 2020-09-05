@@ -27,6 +27,7 @@
 * [【03】通过js为css属性添加合适的prefix](https://github.com/guapi233/Blog/issues/7)
 * [【04】 修改git的commit的注释信息](https://github.com/guapi233/Blog/issues/8)
 * [【05】Vue深度选择器](https://github.com/guapi233/Blog/issues/9)
+* [【06】利用v-model的原理为组件封装双向绑定功能](https://github.com/guapi233/Blog/issues/10)
 
 
 
