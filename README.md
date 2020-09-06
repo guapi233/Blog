@@ -29,6 +29,7 @@
 * [【05】Vue深度选择器](https://github.com/guapi233/Blog/issues/9)
 * [【06】利用v-model的原理为组件封装双向绑定功能](https://github.com/guapi233/Blog/issues/10)
 * [【07】关闭IE表单默认的清空与小眼睛样式 ](https://github.com/guapi233/Blog/issues/11)
+* [【08】组件库打包与发布](https://github.com/guapi233/Blog/issues/12)
 
 
 
