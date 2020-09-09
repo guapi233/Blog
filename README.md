@@ -16,7 +16,8 @@
 
 ## 面试题
 
-* [【01】连等符运行机制考察](https://github.com/guapi233/Blog/issues/4)
+* [【js】连等符运行机制考察](https://github.com/guapi233/Blog/issues/4)
+* [【node】使用NodeJS遍历文件夹](https://github.com/guapi233/Blog/issues/13)
 
 
 
