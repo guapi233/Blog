@@ -18,6 +18,7 @@
 
 * [【js】连等符运行机制考察](https://github.com/guapi233/Blog/issues/4)
 * [【node】使用NodeJS遍历文件夹](https://github.com/guapi233/Blog/issues/13)
+* [【project】Node如何做版本升级？为什么要用nvm？](https://github.com/guapi233/Blog/issues/14)
 
 
 
