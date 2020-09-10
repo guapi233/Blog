@@ -18,6 +18,7 @@
 ## 面试题
 
 * [【js】连等符运行机制考察](https://github.com/guapi233/Blog/issues/4)
+* [【js】图片上传前的预览](https://github.com/guapi233/Blog/issues/17)
 * [【node】使用NodeJS遍历文件夹](https://github.com/guapi233/Blog/issues/13)
 * [【project】Node如何做版本升级？为什么要用nvm？](https://github.com/guapi233/Blog/issues/14)
 * [【project】模块化的差异 ](https://github.com/guapi233/Blog/issues/15)
