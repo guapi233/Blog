@@ -55,5 +55,6 @@
 * [【53】最大子序和](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%9035%E3%80%91%E6%90%9C%E7%B4%A2%E6%8F%92%E5%85%A5%E4%BD%8D%E7%BD%AE)
 * [【58】最后一个单词的长度](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%9058%E3%80%91%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E5%8D%95%E8%AF%8D%E7%9A%84%E9%95%BF%E5%BA%A6)
 * [【66】加一](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%9066%E3%80%91%E5%8A%A0%E4%B8%80)
+* [【83】删除排序链表中的重复元素](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%9083%E3%80%91%E5%88%A0%E9%99%A4%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0)
 * [【88】合并两个有序数组](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%9088%E3%80%91%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84)
 
