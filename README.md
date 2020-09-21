@@ -64,4 +64,5 @@
 * [【101】对称二叉树](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%90101%E3%80%91%E5%AF%B9%E7%A7%B0%E4%BA%8C%E5%8F%89%E6%A0%91)
 * [【104】二叉树的最大深度](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%90104%E3%80%91%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%A4%A7%E6%B7%B1%E5%BA%A6)
 * [【107】二叉树的层次遍历 II](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%90107%E3%80%91%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86%20II)
+* [【112】路径总和](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%90112%E3%80%91%20%E8%B7%AF%E5%BE%84%E6%80%BB%E5%92%8C)
 
