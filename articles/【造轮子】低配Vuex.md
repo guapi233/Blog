@@ -21,17 +21,19 @@ Vuex 是一个专为 Vue.js 应用程序开发的**状态管理模式**。它采
 我们想要的答案好像就要找到了，进入`vueInit`函数，查看内部实现，我们发现了这样一段逻辑代码：
 
 ```js
-  const options = this.$options;
+// mixin.js
 
-  if (options.store) {
-    // 如果当前组件的 $options 中存在 $store, 直接添加
-    this.$store =
-      typeof options.store === "function" ? options.store() : options;
-  } else if (options.parent && options.parent.$sotre) {
-    // 因为组件的加载顺序是先从父组件开始，所以可以从父组件上拿下来，
-    // 这也是为什么需要在 main.js 中明确指定store的原因
-    this.$store = options.parent.$store;
-  }
+const options = this.$options;
+
+if (options.store) {
+  // 如果当前组件的 $options 中存在 $store, 直接添加
+  this.$store =
+    typeof options.store === "function" ? options.store() : options;
+} else if (options.parent && options.parent.$sotre) {
+  // 因为组件的加载顺序是先从父组件开始，所以可以从父组件上拿下来，
+  // 这也是为什么需要在 main.js 中明确指定store的原因
+  this.$store = options.parent.$store;
+}
 ```
 
 因为上文提到了，这段代码最终会被混入到组件中的`beforeCreate`中的，所以上下文中的`this`自然也就变成了当前组件的实例。那么`this.$options`是什么呢？它其实是Vue内部提供的用于收集定义于`data`外的属性的对象，即如果在组件对象上直接定义的属性会被该对象收集（`parent`属性时默认提供的）。
@@ -53,3 +55,47 @@ this._watherVM = new Vue();
 ```
 
 是不是很惊讶，因为Vue已经将响应式数据比较完善的实现了，所以Vuex只需要拿来用即可。
+
+知道了这一原理后，我们就可以开始着手编写`Store`构造函数了:
+
+```js
+// Store.js
+
+//  引入Vue，用于构建数据响应中心
+import Vue from "vue";
+
+export default class Store {
+  // options 为传入的构造对象，包括state、getters、mutation等规则
+  constructor(options) {
+    // 初始化 state
+    this.vm = new Vue({
+      data: {
+        state: options.state,
+      },
+    });
+
+    // 初始化 getters
+    let getters = options.getters || {};
+    this.getters = {};
+    Object.keys(getters).forEach((key) => {
+      // 在$store.getters上定义每个传入的getters，值为传入state的getters函数的调用结果
+      Object.defineProperty(this.getters, key, {
+        get: () => {
+          return getters[key](this.vm.state);
+        },
+      });
+    });
+  }
+
+  // 利用 Class语法 的便利，将this.vm.state 代理给 this.state
+  get state() {
+    return this.vm.state;
+  }
+}
+
+```
+
+到目前为止，我们已经可以在Vue组件中使用`$store.state`和`$store.getters`啦。
+
+
+
