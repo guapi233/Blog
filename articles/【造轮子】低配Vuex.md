@@ -99,3 +99,57 @@ export default class Store {
 
 
 
+## mutations & actions 实现
+
+`mutations`和`actions`与上面的`state、getters`类似，只需要再多实现两个触发方法`commit、dispatch`即可，唯一一点需要注意的是：因为`dispatch`的第一个参数是Store对象本身，并且要在`dispatch`中通过Store对象调用其身上的`commit`的方法，如果用户没有用参数直接接受`Store`对象，而是使用结构语法直接拿到了`commit`方法，通过直接函数调用就会导致内部`this`的丢失。
+
+```js
+actions: {
+  // 可以正常调用
+  enNameLog(that, string) {
+    that.commit("nameLog", string);
+  },
+  // 异常调用 this丢失
+  enNameLog2({ commit }, string) {
+    commit("nameLog", string);
+  },
+},
+```
+
+解决方法也很简单，在Store类中注册`dispatch`时，使用箭头函数保存`this`即可。
+
+完整的代码如下：
+
+```js
+// Store.js
+  constructor() {
+  // ...other code    
+      
+  // 初始化 mutations
+    let mutations = options.mutations || {};
+    this.mutations = {};
+    Object.keys(mutations).forEach((key) => {
+      this.mutations[key] = mutations[key];
+    });
+
+    // 初始化 actions
+    let actions = options.actions || {};
+    this.actions = {};
+    Object.keys(actions).forEach((key) => {
+      this.actions[key] = actions[key];
+    });
+  }
+
+  // dispatch方法
+  dispatch = (method, ...payload) => {
+    // 调用action
+    this.actions[method](this, ...payload);
+  };
+
+  // commit方法
+  commit = (method, ...payload) => {
+    // 调用mutation
+    this.mutations[method](this.state, ...payload);
+  };
+```
+
