@@ -4,6 +4,12 @@ Vuex 是一个专为 Vue.js 应用程序开发的**状态管理模式**。它采
 
 
 
+## 测试Demo
+
+本文所编写测试的Demo，可以在[这里](https://github.com/guapi233/Blog/tree/master/demos/%E3%80%90%E9%80%A0%E8%BD%AE%E5%AD%90%E3%80%91%E4%BD%8E%E9%85%8DVuex)获取。
+
+
+
 ## 为什么我们可以在Vue组件中使用Vuex中的数据？
 
 在回答这个问题前，首先要先捋清楚Vue中父子组件的加载顺序：
