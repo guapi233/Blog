@@ -39,6 +39,7 @@
 * [【07】关闭IE表单默认的清空与小眼睛样式 ](https://github.com/guapi233/Blog/issues/11)
 * [【08】组件库打包与发布](https://github.com/guapi233/Blog/issues/12)
 * [【09】VSCode对配置alias的支持](https://github.com/guapi233/Blog/issues/20)
+* [【10】CSS实现图片占位](https://github.com/guapi233/Blog/issues/21)
 
 
 
