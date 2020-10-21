@@ -1,3 +1,7 @@
+/**
+ * 运行在server上的 WebSocket Client
+ */
+
 const WebSocket = require("ws");
 
 const ws = new WebSocket("ws://localhost:8888");

@@ -1,3 +1,7 @@
+/**
+ * 运行在server上的 WebSocket Server
+ */
+
 const WebSocket = require("ws");
 
 const wss = new WebSocket.Server({ port: 8888 });
