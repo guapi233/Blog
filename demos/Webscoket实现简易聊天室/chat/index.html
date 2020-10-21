@@ -7,12 +7,19 @@
   </head>
   <body>
     <div id="app">
-      <input type="text" v-model="inputVal" />
-      <button @click="commit">提交</button>
-      <hr />
-      <ul>
-        <li v-for="msg in lists" :key="msg + Math.random()">{{ msg }}</li>
-      </ul>
+      <div v-if="isShow">
+        <input type="text" v-model="name" placeholder="请输入名称..." />
+        <button @click="enterChat">进入聊天室</button>
+      </div>
+
+      <div v-else>
+        <input type="text" v-model="inputVal" />
+        <button @click="commit">提交</button>
+        <hr />
+        <ul>
+          <li v-for="msg in lists" :key="msg + Math.random()">{{ msg }}</li>
+        </ul>
+      </div>
     </div>
   </body>
   <!-- <script src="/socket.io/socket.io.js"></script> -->
@@ -25,6 +32,8 @@
         socket: {},
         lists: [],
         inputVal: "",
+        name: "",
+        isShow: true,
       },
       mounted() {
         this.socket = io();
@@ -37,10 +46,23 @@
         },
         // 向服务端发送消息
         commit() {
-          this.lists.push(this.inputVal);
-          this.socket.emit("chatEvent", this.inputVal);
+          this.emit("chatEvent", `${this.name}：${this.inputVal}`);
 
           this.inputVal = "";
+        },
+        enterChat() {
+          if (this.name) {
+            this.isShow = false;
+            this.socket.emit("enterChat", this.name);
+            this.lists.push(`服务器：用户 ${this.name} 进入聊天室！`);
+          } else {
+            alert("名称不得为空");
+          }
+        },
+        // websocket消息提交方法
+        emit(messageName, messageContent, needLocalPush = true) {
+          needLocalPush && this.lists.push(messageContent);
+          this.socket.emit(messageName, messageContent);
         },
       },
     });

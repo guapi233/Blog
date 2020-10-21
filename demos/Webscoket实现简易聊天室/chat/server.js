@@ -11,10 +11,14 @@ app.get("/", (req, res) => {
 io.on("connection", (socket) => {
   console.log("a socket is connected!");
 
+  // 监听消息
   socket.on("chatEvent", (msg) => {
-    console.log(msg);
-
     socket.broadcast.send(msg);
+  });
+
+  // 监听用户进入聊天室
+  socket.on("enterChat", (msg) => {
+    socket.broadcast.send(`服务器：用户 ${msg} 进入聊天室！`);
   });
 });
 
