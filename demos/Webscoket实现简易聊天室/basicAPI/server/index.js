@@ -10,6 +10,11 @@ wss.on("connection", (ws) => {
   console.log("one client is connection");
 
   ws.on("message", (msg) => {
-    ws.send("hello client");
+    wss.clients.forEach((client) => {
+      // 不向自己推送
+      if (client !== ws && client.readyState === WebSocket.OPEN) {
+        client.send("server：" + msg);
+      }
+    });
   });
 });

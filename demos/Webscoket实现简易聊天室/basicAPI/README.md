@@ -94,3 +94,16 @@ ws.on("open", () => {
 - ws.onclose：监听关闭事件
 - ws.close()：关闭连接
 
+
+
+### 服务端广播
+
+```js
+wss.clients.forEach((client) => {
+    // 判断非自己的客户端
+    if (ws !== client && client.readyState === WebSocket.OPEN) {
+        client.send(消息);
+    }
+})
+```
+

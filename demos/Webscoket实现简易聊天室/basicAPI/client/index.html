@@ -13,7 +13,7 @@
     const ws = new WebSocket("ws://localhost:8888");
 
     ws.onopen = () => {
-      ws.send("hello server");
+      ws.send("你好");
     };
 
     ws.onmessage = (msg) => {
