@@ -8,14 +8,27 @@
   <body>
     <div id="app">
       <div v-if="isShow">
-        <input type="text" v-model="name" placeholder="请输入名称..." />
+        <p>
+          名称：<input type="text" v-model="name" placeholder="请输入名称..." />
+        </p>
+        <p>
+          房间号：<input
+            type="text"
+            v-model="roomId"
+            placeholder="请输入房间号..."
+          />
+        </p>
         <button @click="enterChat">进入聊天室</button>
       </div>
 
       <div v-else>
         <input type="text" v-model="inputVal" />
         <button @click="commit">提交</button>
-        <span> 💻当前在线人数：{{ count }}</span>
+        <span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;💻当前在线人数：{{ count }} </span>
+        <span>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🏠当前所在房间：{{ roomId }}
+        </span>
+        <span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;😀您的名称：{{ name }} </span>
         <hr />
         <ul>
           <li v-for="msg in lists" :key="msg + Math.random()">{{ msg }}</li>
@@ -36,11 +49,11 @@
         name: "",
         isShow: true,
         count: 0,
+        roomId: "",
       },
       mounted() {
-        this.socket = io();
-        this.socket.on("message", this.onmessage);
-        this.socket.on("enterOrLeave", this.onEnterOrLeaveChat);
+        // 开启WebSocket连接
+        this.init();
       },
       methods: {
         // 监听服务端回话
@@ -51,7 +64,7 @@
         onEnterOrLeaveChat(msg) {
           try {
             msg = JSON.parse(msg);
-            console.log(msg);
+
             this.lists.push(msg.message);
             this.count = msg.count;
           } catch (err) {
@@ -64,10 +77,36 @@
 
           this.inputVal = "";
         },
-        enterChat() {
+        // 进入房间
+        async enterChat() {
           if (this.name) {
+            // 发送身份信息
+            this.socket.emit(
+              "enterChat",
+              JSON.stringify({
+                name: this.name,
+                room: this.roomId,
+              })
+            );
+
+            // 判断名称是否重复
+            let canContinue = true;
+            await new Promise((resolve, reject) => {
+              console.log(this.socket);
+              this.socket.on("nameHasBeen", (msg) => {
+                if (msg) {
+                  canContinue = false;
+                  alert("名称已经存在了！");
+                }
+                resolve(1);
+              });
+            });
+            if (!canContinue) {
+              return;
+            }
+
+            // 初始化聊天室信息
             this.isShow = false;
-            this.socket.emit("enterChat", this.name);
           } else {
             alert("名称不得为空");
           }
@@ -76,6 +115,12 @@
         emit(messageName, messageContent, needLocalPush = true) {
           needLocalPush && this.lists.push(messageContent);
           this.socket.emit(messageName, messageContent);
+        },
+        // 初始化socket连接
+        init() {
+          this.socket = io();
+          this.socket.on("message", this.onmessage);
+          this.socket.on("enterOrLeave", this.onEnterOrLeaveChat);
         },
       },
     });
