@@ -90,6 +90,7 @@ ws.on("open", () => {
 - ws.onmessage：监听client发过来的消息
 - ws.send(data)：主动发送消息给client/server
 - ws.onopen：client连接上server事件监听
-
 - ws.onerror：监听错误事件
+- ws.onclose：监听关闭事件
+- ws.close()：关闭连接
 
