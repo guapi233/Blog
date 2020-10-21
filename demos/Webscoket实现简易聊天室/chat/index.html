@@ -54,7 +54,7 @@
           if (this.name) {
             this.isShow = false;
             this.socket.emit("enterChat", this.name);
-            this.lists.push(`服务器：用户 ${this.name} 进入聊天室！`);
+            this.lists.push(`系统：用户 ${this.name} 进入聊天室！`);
           } else {
             alert("名称不得为空");
           }
