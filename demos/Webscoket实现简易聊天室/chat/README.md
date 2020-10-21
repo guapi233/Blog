@@ -20,6 +20,10 @@ npm start
 * socket.broadcast.emit(消息名，消息)：广播**命名**消息
 * socket.broadcast.send(消息)：广播**message**数据
 * socket.on(消息名, 回调函数)：监听消息
+* socket.join(房间名)：加入某个房间
+* socket.leave(退出房间)：退出某个房间
+* socket.to(房间名).emit/send()：向所处的房间广播消息
+* io.of(命名空间)：新建一个命名空间，前端通过`new io(/命名空间)`访问
 
 
 
