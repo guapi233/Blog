@@ -6,25 +6,43 @@
     <title>Document</title>
   </head>
   <body>
-    <input type="text" id="inputer" />
-    <button id="commit">提交</button>
+    <div id="app">
+      <input type="text" v-model="inputVal" />
+      <button @click="commit">提交</button>
+      <hr />
+      <ul>
+        <li v-for="msg in lists" :key="msg + Math.random()">{{ msg }}</li>
+      </ul>
+    </div>
   </body>
   <!-- <script src="/socket.io/socket.io.js"></script> -->
   <script src="https://cdn.staticfile.org/socket.io/2.3.0/socket.io.js"></script>
+  <script src="https://cdn.staticfile.org/vue/2.6.1/vue.min.js"></script>
   <script>
-    const socket = io();
-    const inputer = document.querySelector("#inputer");
+    const app = new Vue({
+      el: "#app",
+      data: {
+        socket: {},
+        lists: [],
+        inputVal: "",
+      },
+      mounted() {
+        this.socket = io();
+        this.socket.on("message", this.onmessage);
+      },
+      methods: {
+        // 监听服务端回话
+        onmessage(msg) {
+          this.lists.push(msg);
+        },
+        // 向服务端发送消息
+        commit() {
+          this.lists.push(this.inputVal);
+          this.socket.emit("chatEvent", this.inputVal);
 
-    // 向服务端发送消息
-    document.querySelector("#commit").addEventListener("click", () => {
-      socket.emit("chatEvent", inputer.value);
-
-      inputer.value = "";
-    });
-
-    // 监听服务端回话
-    socket.on("message", (msg) => {
-      console.log(msg);
+          this.inputVal = "";
+        },
+      },
     });
   </script>
 </html>
