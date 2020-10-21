@@ -8,5 +8,13 @@
   <body></body>
   <script>
     const ws = new WebSocket("ws://localhost:8888");
+
+    ws.onopen = () => {
+      ws.send("hello server");
+    };
+
+    ws.onmessage = (msg) => {
+      console.log(msg);
+    };
   </script>
 </html>
