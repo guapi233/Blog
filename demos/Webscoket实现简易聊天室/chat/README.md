@@ -13,6 +13,13 @@ npm start
 
 
 
+## socket.io 常用API
+
+* socket.emit(消息名, 数据)：发送消息
+* socket.on(消息名, 回调函数)：监听消息
+
+
+
 ## 建立express服务
 
 ```js
