@@ -15,8 +15,10 @@ npm start
 
 ## socket.io 常用API
 
-* socket.emit(消息名, 数据)：发送消息
+* socket.emit(消息名, 数据)：发送**命名**消息，只能触发监听**同样消息名**的回调
+* socket.send(数据)：发送**message**消息，只能触发监听**message消息名**的回调
 * socket.on(消息名, 回调函数)：监听消息
+* socket.broadcast.emit(消息名，数据)：广播命名数据
 
 
 

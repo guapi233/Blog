@@ -6,11 +6,25 @@
     <title>Document</title>
   </head>
   <body>
-    hello server!
+    <input type="text" id="inputer" />
+    <button id="commit">提交</button>
   </body>
   <!-- <script src="/socket.io/socket.io.js"></script> -->
   <script src="https://cdn.staticfile.org/socket.io/2.3.0/socket.io.js"></script>
   <script>
     const socket = io();
+    const inputer = document.querySelector("#inputer");
+
+    // 向服务端发送消息
+    document.querySelector("#commit").addEventListener("click", () => {
+      socket.emit("chatEvent", inputer.value);
+
+      inputer.value = "";
+    });
+
+    // 监听服务端回话
+    socket.on("server say", (msg) => {
+      console.log(msg);
+    });
   </script>
 </html>

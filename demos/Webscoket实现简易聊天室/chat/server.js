@@ -10,6 +10,12 @@ app.get("/", (req, res) => {
 // 监听client连接
 io.on("connection", (socket) => {
   console.log("a socket is connected!");
+
+  socket.on("chatEvent", (msg) => {
+    console.log(msg);
+
+    socket.emit("server say", `server say ${msg}, too`);
+  });
 });
 
 http.listen(9999, () => {
