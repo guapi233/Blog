@@ -15,6 +15,7 @@
       <div v-else>
         <input type="text" v-model="inputVal" />
         <button @click="commit">提交</button>
+        <span> 💻当前在线人数：{{ count }}</span>
         <hr />
         <ul>
           <li v-for="msg in lists" :key="msg + Math.random()">{{ msg }}</li>
@@ -34,15 +35,28 @@
         inputVal: "",
         name: "",
         isShow: true,
+        count: 0,
       },
       mounted() {
         this.socket = io();
         this.socket.on("message", this.onmessage);
+        this.socket.on("enterOrLeave", this.onEnterOrLeaveChat);
       },
       methods: {
         // 监听服务端回话
         onmessage(msg) {
           this.lists.push(msg);
+        },
+        // 监听服务端登录
+        onEnterOrLeaveChat(msg) {
+          try {
+            msg = JSON.parse(msg);
+            console.log(msg);
+            this.lists.push(msg.message);
+            this.count = msg.count;
+          } catch (err) {
+            // noop...
+          }
         },
         // 向服务端发送消息
         commit() {
@@ -54,7 +68,6 @@
           if (this.name) {
             this.isShow = false;
             this.socket.emit("enterChat", this.name);
-            this.lists.push(`系统：用户 ${this.name} 进入聊天室！`);
           } else {
             alert("名称不得为空");
           }

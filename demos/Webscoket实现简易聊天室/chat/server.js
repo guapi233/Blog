@@ -7,6 +7,8 @@ app.get("/", (req, res) => {
   res.sendFile(__dirname + "/index.html");
 });
 
+io.clientsCount = 0;
+
 // 监听client连接
 io.on("connection", (socket) => {
   console.log("a socket is connected!");
@@ -18,7 +20,40 @@ io.on("connection", (socket) => {
 
   // 监听用户进入聊天室
   socket.on("enterChat", (msg) => {
-    socket.broadcast.send(`服务器：用户 ${msg} 进入聊天室！`);
+    if (!msg) return;
+
+    socket.name = msg;
+    io.clientsCount++;
+
+    socket.emit(
+      "enterOrLeave",
+      JSON.stringify({
+        message: `系统：用户 ${msg} 进入聊天室！`,
+        count: io.clientsCount,
+      })
+    );
+
+    socket.broadcast.emit(
+      "enterOrLeave",
+      JSON.stringify({
+        message: `系统：用户 ${msg} 进入聊天室！`,
+        count: io.clientsCount,
+      })
+    );
+  });
+
+  // 监听用户离开事件
+  socket.on("disconnect", () => {
+    if (!socket.name) return;
+
+    io.clientsCount--;
+    socket.broadcast.emit(
+      "enterOrLeave",
+      JSON.stringify({
+        message: `系统：用户 ${socket.name} 离开了聊天室！`,
+        count: io.clientsCount,
+      })
+    );
   });
 });
 
