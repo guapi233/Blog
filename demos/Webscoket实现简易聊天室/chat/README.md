@@ -71,4 +71,10 @@ http.listen(9999, () => {
   </script>
   ```
 
-  
+
+
+## WebSocket鉴权
+
+* 协议本身在握手阶段不提供鉴权方案，浏览器端的WebSocket对象无法修改传输的请求头
+* 浏览器侧可用方案：url传参，message主动消息，session/cookie
+* Node测：直接使用ws传Headers
