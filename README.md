@@ -40,6 +40,7 @@
 * [【08】组件库打包与发布](https://github.com/guapi233/Blog/issues/12)
 * [【09】VSCode对配置alias的支持](https://github.com/guapi233/Blog/issues/20)
 * [【10】CSS实现图片占位](https://github.com/guapi233/Blog/issues/21)
+* [【11】VSCode隐藏不常用文件](https://github.com/guapi233/Blog/issues/23)
 
 
 
