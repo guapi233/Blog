@@ -326,3 +326,36 @@ export default class PropComponent extends Vue {
 </script>
 ```
 
+
+
+### @Ref(refKey?: string)
+
+`@Ref` 装饰器接收一个可选参数，用来指向元素或子组件的引用信息。如果没有提供这个参数，会使用装饰器后面的属性名充当参数
+
+```html
+// ✨：示例
+<template>
+  <div class="PropSync">
+    <button @click="getRef()" ref="aButton">获取ref</button>
+    <RefComponent name="names" ref="RefComponent"></RefComponent>
+  </div>
+</template>
+ 
+<script lang="ts">
+import { Vue, Component, Ref } from 'vue-property-decorator';
+import RefComponent from '@/components/RefComponent.vue';
+ 
+@Component({
+  components: { RefComponent },
+})
+export default class RefPage extends Vue {
+  @Ref('RefComponent') readonly RefC!: RefComponent;
+  @Ref('aButton') readonly ref!: HTMLButtonElement;
+  getRef() {
+    console.log(this.RefC);
+    console.log(this.ref);
+  }
+}
+</script>
+```
+
