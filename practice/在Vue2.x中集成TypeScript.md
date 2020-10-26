@@ -204,3 +204,41 @@ export default class ModelComponent extends Vue {
 </script>
 ```
 
+
+
+### @Watch(path: string, options: object) 
+
+`@Watch` 装饰器接收两个参数：
+
+- `path: string` 被侦听的属性名；
+- `options?: object`可以包含两个属性 ：
+  * `immediate?: boolean` ：侦听开始之后是否立即调用该回调函数；
+  * `deep?: boolean` ：被侦听的对象的属性被改变时，是否调用该回调函数，如果设置了该属性，`wather`的第一次执行会发生在组件的 `beforeCreate()` 与 `created()` 之间
+
+```html
+// ✨：示例
+<template>
+  <div class="PropSync">
+    <h1>child:{{child}}</h1>
+    <input type="text" v-model="child"/>
+  </div>
+</template>
+ 
+<script lang="ts">
+import { Vue, Watch, Component } from 'vue-property-decorator';
+ 
+@Component
+export default class WatchPage extends Vue {
+  private child = '';
+ 
+  @Watch('child')
+  onChildChanged(newValue: string, oldValue: string) {
+    console.log(newValue);
+    console.log(oldValue);
+  }
+}
+</script>
+```
+
+
+
