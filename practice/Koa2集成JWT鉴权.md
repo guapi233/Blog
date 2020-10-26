@@ -1,6 +1,6 @@
 # Koa2集成 JWT 鉴权
 
-设计到的关键中间件：`koa-jwt`、`jsonwebtoken`
+涉及到的关键中间件：`koa-jwt`、`jsonwebtoken`
 
 
 
