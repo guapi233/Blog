@@ -359,3 +359,110 @@ export default class RefPage extends Vue {
 </script>
 ```
 
+
+
+### @Provide/Inject  &  @ProvideReactive/InjectReactive
+
+* `@Provide(key?: string | symbol)` / `@Inject(options?: { from?: InjectKey, default?: any } | InjectKey)` 
+
+* `@ProvideReactive(key?: string | symbol)` / `@InjectReactive(options?: { from?: InjectKey, default?: any } | InjectKey)`
+
+区别：如果 `@ProvideReactive` 的值被父组件修改，则子组件可以使用 `InjectReactive` 捕获次修改。
+
+```html
+// ✨：示例
+// 最外层组件
+<template>
+  <div class="">
+    <H3>ProvideInjectPage页面</H3>
+    <div>
+      在ProvideInjectPage页面使用Provide,ProvideReactive定义数据,不需要props传递数据
+      然后爷爷套父母,父母套儿子,儿子套孙子,最后在孙子组件里面获取ProvideInjectPage
+      里面的信息
+    </div>
+    <hr/>
+    <provideGrandpa></provideGrandpa> <!--爷爷组件-->
+  </div>
+</template>
+ 
+<script lang="ts">
+import {
+  Vue, Component, Provide, ProvideReactive,
+} from 'vue-property-decorator';
+import provideGrandpa from '@/components/ProvideGParentComponent.vue';
+ 
+@Component({
+  components: { provideGrandpa },
+})
+export default class ProvideInjectPage extends Vue {
+  @Provide() foo = Symbol('fooaaa');
+ 
+  @ProvideReactive() fooReactive = 'fooReactive';
+ 
+  @ProvideReactive('1') fooReactiveKey1 = 'fooReactiveKey1';
+ 
+  @ProvideReactive('2') fooReactiveKey2 = 'fooReactiveKey2';
+ 
+  created() {
+    this.foo = Symbol('fooaaa111');
+    this.fooReactive = 'fooReactive111';
+    this.fooReactiveKey1 = 'fooReactiveKey111';
+    this.fooReactiveKey2 = 'fooReactiveKey222';
+  }
+}
+</script>
+ 
+// ...provideGrandpa调用父母组件
+<template>
+  <div class="hello">
+    <ProvideParentComponent></ProvideParentComponent>
+  </div>
+</template>
+ 
+// ...ProvideParentComponent调用儿子组件
+<template>
+  <div class="hello">
+    <ProvideSonComponent></ProvideSonComponent>
+  </div>
+</template>
+ 
+// ...ProvideSonComponent调用孙子组件
+<template>
+  <div class="hello">
+    <ProvideGSonComponent></ProvideGSonComponent>
+  </div>
+</template>
+ 
+ 
+// 孙子组件<ProvideGSonComponent>,经过多层引用后,在孙子组件使用Inject可以得到最外层组件provide的数据哦
+<template>
+  <div class="hello">
+    <h3>孙子的组件</h3>
+    爷爷组件里面的foo:{{foo.description}}<br/>
+    爷爷组件里面的fooReactive:{{fooReactive}}<br/>
+    爷爷组件里面的fooReactiveKey1:{{fooReactiveKey1}}<br/>
+    爷爷组件里面的fooReactiveKey2:{{fooReactiveKey2}}
+    <span style="padding-left:30px;">=> fooReactiveKey2没有些key所以取不到哦</span>
+  </div>
+</template>
+ 
+<script lang="ts">
+import {
+  Component, Vue, Inject, InjectReactive,
+} from 'vue-property-decorator';
+ 
+@Component
+export default class ProvideGSonComponent extends Vue {
+  @Inject() readonly foo!: string;
+ 
+  @InjectReactive() fooReactive!: string;
+ 
+  @InjectReactive('1') fooReactiveKey1!: string;
+ 
+  @InjectReactive() fooReactiveKey2!: string;
+}
+</script>
+```
+
+
+
