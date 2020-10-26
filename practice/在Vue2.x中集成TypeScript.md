@@ -149,3 +149,58 @@ export default class PropSyncComponent extends Vue {
 </script>
 ```
 
+
+
+### @Model(event?: string, options: [string, array, object])
+
+`@Model`装饰器允许我们在一个组件上自定义`v-model`，接收两个参数：
+
+- `event: string`： 事件名。
+- `options`： 与`@Prop`的第一个参数一致。
+
+简单得说，`model`就是用于重置组件`v-model`属性占用的 `prop` 和 `event监听`，默认占用了 `value` 和 `change事件`，如果你想要使用这两个控件，就可以使用使用 `model` 将默认配置修改为其它的变量或事件。
+
+因为不怎么常用，具体的详情可以参考[官方文档](https://cn.vuejs.org/v2/api/#model)。
+
+```html
+// ✨：示例
+// 父组件
+<template>
+  <div class="Model">
+    // 因为 value 被“解放”出来了，所以可以直接使用
+    <ModelComponent v-model="fooTs" value="some value"></ModelComponent>
+    <div>父组件 app : {{fooTs}}</div>
+  </div>
+</template>
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
+import ModelComponent from '@/components/ModelComponent.vue';
+ 
+@Component({ components: {ModelComponent} })
+export default class ModelPage extends Vue {
+  private fooTs = 'App Foo!';
+}
+</script>
+ 
+// 子组件
+<template>
+  <div class="hello">
+    子组件:<input type="text" :value="checked" @input="inputHandle($event)"/>
+  </div>
+</template>
+ 
+<script lang="ts">
+import {Component, Vue, Model,} from 'vue-property-decorator';
+ 
+@Component
+export default class ModelComponent extends Vue {
+   // 使用 checked 来替换 value，change事件不变
+   @Model('change', { type: String }) readonly checked!: string
+ 
+   public inputHandle(that: any): void {
+     this.$emit('change', that.target.value); // 后面会讲到@Emit,此处就先使用this.$emit代替
+   }
+}
+</script>
+```
+
