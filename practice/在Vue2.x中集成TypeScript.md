@@ -242,3 +242,87 @@ export default class WatchPage extends Vue {
 
 
 
+### @Emit(event?: string)
+
+- `@Emit` 装饰器接收一个可选参数，该参数是`$Emit`的第一个参数，充当事件名。如果没有提供这个参数，`$Emit`会将回调函数名的`camelCase`转为`kebab-case`，并将其作为事件名；
+- `@Emit`会将回调函数的返回值作为第二个参数，如果返回值是一个`Promise`对象，`$emit`会在`Promise`对象被标记为`resolved`之后触发；
+- `@Emit`的回调函数的参数，会放在其返回值**之后**，一起被`$emit`当做参数使用。
+
+```html
+// ✨：示例
+// 父组件
+<template>
+  <div class="">
+    点击emit获取子组件的名字<br/>
+    姓名:{{emitData.name}}
+    <hr/>
+    <EmitComponent sex='女' @add-to-count="returnPersons" @delemit="delemit"></EmitComponent>
+  </div>
+</template>
+ 
+<script lang="ts">
+import { Vue, Component } from 'vue-property-decorator';
+import EmitComponent from '@/components/EmitComponent.vue';
+ 
+@Component({
+  components: { EmitComponent },
+})
+export default class EmitPage extends Vue {
+  private emitData = { name: '我还没有名字' };
+ 
+  returnPersons(data: any) {
+    this.emitData = data;
+  }
+ 
+  delemit(event: MouseEvent) {
+    console.log(this.emitData);
+    console.log(event);
+  }
+}
+</script>
+ 
+// 子组件
+<template>
+  <div class="hello">
+    子组件:
+    <div v-if="person">
+      姓名:{{person.name}}<br/>
+      年龄:{{person.age}}<br/>
+      性别:{{person.sex}}<br/>
+    </div>
+    <button @click="addToCount(person)">点击emit</button>
+    <button @click="delToCount($event)">点击del emit</button>
+  </div>
+</template>
+ 
+<script lang="ts">
+import {
+  Component, Vue, Prop, Emit,
+} from 'vue-property-decorator';
+ 
+type Person = {name: string; age: number; sex: string };
+ 
+@Component
+export default class PropComponent extends Vue {
+  private name: string | undefined;
+ 
+  private age: number | undefined;
+ 
+  private person: Person = { name: '我是子组件的张三', age: 1, sex: '男' };
+ 
+  @Prop(String) readonly sex: string | undefined;
+ 
+  @Emit('delemit') private delEmitClick(event: MouseEvent) {}
+ 
+  @Emit() // 如果此处不设置别名字,则默认使用下面的函数命名
+  addToCount(p: Person) { // 此处命名如果有大写字母则需要用横线隔开  @add-to-count
+    return this.person; // 此处不return,则会默认使用括号里的参数p;
+  }
+ 
+  delToCount(event: MouseEvent) {
+    this.delEmitClick(event);
+  }
+}
+</script>
+```
+
