@@ -42,6 +42,7 @@
 * [【10】CSS实现图片占位](https://github.com/guapi233/Blog/issues/21)
 * [【11】VSCode隐藏不常用文件](https://github.com/guapi233/Blog/issues/23)
 * [【12】在VSCode中自定义代码片段 ](https://github.com/guapi233/Blog/issues/24)
+* [【13】利用 .sync 简化 Vue数据双向绑定](https://github.com/guapi233/Blog/issues/25)
 
 
 
