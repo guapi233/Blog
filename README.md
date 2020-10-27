@@ -46,6 +46,7 @@
 * [【14】Koa2集成 JWT 鉴权](https://github.com/guapi233/Blog/issues/26)
 * [【15】通过 svg-captcha 制作验证码](https://github.com/guapi233/Blog/issues/27)
 * [【16】Vue-cli集成 less3.x 时出现的问题](https://github.com/guapi233/Blog/issues/28)
+* [【17】Vue-cli4.x配置Scss全局样式](https://github.com/guapi233/Blog/issues/29)
 
 
 
