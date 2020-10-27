@@ -44,6 +44,7 @@
 * [【12】在VSCode中自定义代码片段 ](https://github.com/guapi233/Blog/issues/24)
 * [【13】利用 .sync 简化 Vue数据双向绑定](https://github.com/guapi233/Blog/issues/25)
 * [【14】Koa2集成 JWT 鉴权](https://github.com/guapi233/Blog/issues/26)
+* [【15】通过 svg-captcha 制作验证码](https://github.com/guapi233/Blog/issues/27)
 
 
 
