@@ -49,6 +49,7 @@
 * [【17】Vue-cli4.x配置Scss全局样式](https://github.com/guapi233/Blog/issues/29)
 * [【18】MongoDB集合命名规范](https://github.com/guapi233/Blog/issues/30)
 * [【19】返回页面顶部](https://github.com/guapi233/Blog/issues/31)
+* [【20】Vue生命周期钩子和async](https://github.com/guapi233/Blog/issues/32)
 
 
 
