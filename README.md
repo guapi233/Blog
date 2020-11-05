@@ -50,6 +50,7 @@
 * [【18】MongoDB集合命名规范](https://github.com/guapi233/Blog/issues/30)
 * [【19】返回页面顶部](https://github.com/guapi233/Blog/issues/31)
 * [【20】Vue生命周期钩子和async](https://github.com/guapi233/Blog/issues/32)
+* [【21】Vue模板中多个 &nbsp ; 合并的问题](https://github.com/guapi233/Blog/issues/33)
 
 
 
