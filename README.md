@@ -14,6 +14,7 @@
 * [【造轮子】低配axios](https://github.com/guapi233/Blog/issues/3)
 * [【造轮子】低配Vuex](https://github.com/guapi233/Blog/issues/19)
 * [利用微队列突破递归限制](https://github.com/guapi233/Blog/issues/16)
+* [Vue-Router 路由守卫执行顺序](https://github.com/guapi233/Blog/issues/34)
 
 
 
