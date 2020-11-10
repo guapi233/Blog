@@ -194,6 +194,15 @@ export default class Test extends Vue {
      }
    ```
 
+3. 后台以以下数据格式返回结果：
+
+   ```js
+   {
+       uploaded: true,
+       url: 图片路径
+   }
+   ```
+
    
 
 
