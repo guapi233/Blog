@@ -139,6 +139,65 @@ export default class Test extends Vue {
 
 
 
+## 自定义图片上传
+
+官方教程中上传图片有三种方法：
+
+1. 使用CKEditor自带云服务,图片上传到CKEditor服务器
+2. 使用CKFinder框架，在初始化CKEditor时，需要定义 ckfinder的uploadUrl参数，参数为上传到自己服务器的地址
+3. 自己写上传功能，定义`UploadAdapter`类，实现`upload()`和 `abort()` 方法，并对`UploadAdapter`进行调用。
+
+第一种方案一般情况下都会pass掉，第二、三种方案其实都可以，但是第三种方案更加灵活一些，更加容易结合业务。下面是第三种方案的操作步骤：
+
+1. 创建`UploadAdapter`类，构造函数中接收一个`loader`参数，该参数由外部传入，身上存放着需要上传的文件，在类中实现`upload`方法，该方法返回一个Promise，在Promise中发送请求，并且返回结果
+
+   ```js
+   // 示例代码
+   import axios from "@/utils/axios";
+   
+   export default class UploadAdapter {
+     constructor(private loader: any) {}
+   
+     async upload() {
+       const data = new FormData();
+       data.append("file", await this.loader.file);
+       data.append("allowSize", "10"); // 允许图片上传的大小/兆
+   
+       return new Promise((resolve, reject) => {
+         axios.post("/uploadImg", data).then((data: any) => {
+           if (data.res) {
+             resolve({
+               default: data.url,
+             });
+           } else {
+             reject("上传失败");
+           }
+         });
+       });
+     }
+   
+     abort() {
+       console.log("upload abort");
+     }
+   }
+   ```
+
+2. 在CKEdit5-vue提供的ready钩子中完成自定义的上传插件安装，安装步骤如下：
+
+   ```ts
+     private onReady(editor: any) {
+       editor.plugins.get("FileRepository").createUploadAdapter = (
+         loader: any
+       ) => {
+         return new UploadAdapter(loader);
+       };
+     }
+   ```
+
+   
+
+
+
 ## 最后
 
 如果代码使用git等版本控制工具管理，记着将定制后的包存放起来，因为一般情况下`node_modules`是不会推送到远程仓库的，如果其他地方需要拉取代码时需要重新覆盖`@ckeditor`下的文件。
