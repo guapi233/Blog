@@ -53,6 +53,7 @@
 * [【20】Vue生命周期钩子和async](https://github.com/guapi233/Blog/issues/32)
 * [【21】Vue模板中多个 &nbsp ; 合并的问题](https://github.com/guapi233/Blog/issues/33)
 * [【22】遍历与 async 结合的正确方式](https://github.com/guapi233/Blog/issues/35)
+* [【23】Vue集成 CKEdit5](https://github.com/guapi233/Blog/issues/36)
 
 
 
