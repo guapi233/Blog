@@ -82,7 +82,7 @@ export default class Test extends Vue {
 这里我采用得是另一种方法，其实CKEdit官网已经为我们提供了[傻瓜拖拽式的定制化功能](https://ckeditor.com/ckeditor-5/online-builder/)。
 
 1. 首先先将上面的快速集成做完。
-2. 然后在官网将定制完成后的包下载下来后，在项目下的`node_modules`中找到`@ckeditor/ckeditor5-build-classic`，将定制包中的内容，主要是`build/`和`package.json`覆盖到此处。
+2. 然后在官网将定制完成后的包下载下来后，在项目下的`node_modules`中找到`@ckeditor/ckeditor5-build-classic`，将定制包中的内容，主要是`build/`覆盖到此处。
 3. 最后，定制包中下的`simple/`已经为我们提供了定制后的样例，按照样例中的配置，完成相关配置即可。
 
 下面贴上我的配置：
