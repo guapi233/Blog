@@ -54,6 +54,7 @@
 * [【21】Vue模板中多个 &nbsp ; 合并的问题](https://github.com/guapi233/Blog/issues/33)
 * [【22】遍历与 async 结合的正确方式](https://github.com/guapi233/Blog/issues/35)
 * [【23】Vue集成 CKEdit5](https://github.com/guapi233/Blog/issues/36)
+* [【24】textarea高度随内容变化](https://github.com/guapi233/Blog/issues/37)
 
 
 
