@@ -230,7 +230,7 @@ export default class Test extends Vue {
    };
    ```
 
-3. 完成基础依赖项配置后，就可以选择需要集成的功能模块了，需要注意的是，源码构建版本所需的基础包不是`@ckeditor/ckeditor5-build-classic`而是`@ckeditor/ckeditor5-editor-classic`，如果你不清楚自己需要哪些依赖包，那么可以去官方提供的[傻瓜式在线构建](https://ckeditor.com/ckeditor-5/online-builder/)那里完成在线构建并将打包后的包下载下来，根据其中`src/ckeditor.js`其中的配置项进行安装。
+3. 完成基础依赖项配置后，就可以选择需要集成的功能模块了，需要注意的是，源码构建版本所需的基础包不是`@ckeditor/ckeditor5-build-classic`而是`@ckeditor/ckeditor5-editor-classic`，如果你不清楚自己需要哪些依赖包，那么可以去官方提供的[傻瓜式在线构建](https://ckeditor.com/ckeditor-5/online-builder/)那里选择功能，完成在线构建并将打包后的包下载下来，根据其中`src/ckeditor.js`其中的依赖项进行安装。
 
 4. 完成功能包下载后，就可以封装富文本组件了，这里同样不建议在全局已经导入`@ckeditor/ckeditor5-vue`，将其单独引入到一个组件中，完成对应的封装，其实就和上面快速集成的步骤一样，只不过需要修改一行代码，就是将`import ClassicEditor from "@ckeditor/ckeditor5-build-classic";`修改为`import ClassicEditor from "./editorCore.js";`，当然后面的路径你可以随意指定，主要是这个文件中需要填写什么，其实只需要参考在线构建包中的`src/ckeditor.js`即可，下面贴上我的`editorCore`配置，可以参考着进行配置：
 
@@ -354,7 +354,7 @@ export default class Test extends Vue {
      //   uploadUrl: config.baseUrl + "/uploadImg" // 后端处理上传逻辑返回json数据,包括uploaded(选项true/false)和url两个字段,
      // },
      language: "zh-cn",
-     // 视频上传功能
+     // 视频上传功能（CKEditor默认只支持一些外网视频，所以需要自定义）
      mediaEmbed: {
        providers: [
          {
@@ -482,5 +482,7 @@ export default class Test extends Vue {
 
 ## 最后
 
-如果代码使用git等版本控制工具管理，记着将定制后的包存放起来，因为一般情况下`node_modules`是不会推送到远程仓库的，如果其他地方需要拉取代码时需要重新覆盖`@ckeditor`下的文件。
+~~如果代码使用git等版本控制工具管理，记着将定制后的包存放起来，因为一般情况下`node_modules`是不会推送到远程仓库的，如果其他地方需要拉取代码时需要重新覆盖`@ckeditor`下的文件。~~（更新：使用源码构建后就无须在关心这种情况）。
+
+
 
