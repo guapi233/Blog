@@ -476,7 +476,36 @@ export default class Test extends Vue {
    }
    ```
 
-   
+
+
+
+## 自动保存功能
+
+如果想使用该功能需要安装`@ckeditor/ckeditor5-autosave/src/autosave.js`插件，安装之后可在配置对象中添加`autosave`字段配置项:
+
+```js
+autosave: {
+      waitingTime: 1500,  // 间隔时间
+      save(editor: any) {  // 自动保存函数
+        // 用于获取纯文本
+        const contentArea: any = document.querySelector(".ck.ck-content");
+	
+        // 在Vue中可以对外暴露 save Prop，然后在这调用父组件传入的保存函数
+        // this.save &&
+        //   this.save({
+        //     text: editor.getData(),
+        //     plainText: contentArea.textContent,
+        //   });
+      },
+}
+```
+
+注意：在`save`方法中由于上下文丢失的原因是无法访问在Vue中的`this`的，也就意味着无法拿到双向绑定的数据。这时候有两种解决方法：
+
+1. 因为在对象中禁忌使用箭头函数（如果用了的话会导致双向绑定的数据失去效果），所以可以采用`that`法：在全局声明一个变量`that`，在组件初始化钩子里将组件实例赋值给`that`，并在`save`函数中使用`that`访问组件身上的属性方法
+2. 如果只想获取输入的内容，无需调用组件的其他属性的话，可以采用上面示例代码中的方法，通过参数`editor`身上的`getData`获取内容
+
+
 
 
 
