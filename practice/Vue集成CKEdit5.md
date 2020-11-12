@@ -79,7 +79,7 @@ export default class Test extends Vue {
 
 [这位老哥的文章](https://www.jianshu.com/p/9b4374e603f3)详细介绍了源码层面手动集成所需功能的步骤，非常详细具体。
 
-这里我采用得是另一种方法，其实CKEdit官网已经为我们提供了[傻瓜拖拽式的定制化功能](https://ckeditor.com/ckeditor-5/online-builder/)。
+~~这里我采用得是另一种方法，其实CKEdit官网已经为我们提供了[傻瓜拖拽式的定制化功能](https://ckeditor.com/ckeditor-5/online-builder/)。~~（更新：这种方法经过验证存在不可预测的问题（直接覆盖`node_modules`在Edge中可以正常运行，但在Chrome就会崩掉，在项目中直接导入定制包会导致webpack热更新打包卡死），所以建议还是按照下面的**源码构建方法**进行操作）。
 
 1. 首先先将上面的快速集成做完。
 2. 然后在官网将定制完成后的包下载下来后，在项目下的`node_modules`中找到`@ckeditor/ckeditor5-build-classic`，将定制包中的内容，主要是`build/`覆盖到此处。
@@ -136,6 +136,279 @@ export default class Test extends Vue {
     licenseKey: ""
   }
 ```
+
+
+
+### 源码构建（强烈建议使用该方法进行集成）
+
+[CKEdit5的文档](https://ckeditor.com/docs/ckeditor5/latest/builds/guides/integration/frameworks/vuejs.html#using-ckeditor-from-source)已经详细记录了如果在Vue中进行自定义功能构建，大致步骤分为以下几步：
+
+1. 在项目中安装必要依赖项：
+
+   ```shell
+   npm install --save \
+       @ckeditor/ckeditor5-vue \
+       @ckeditor/ckeditor5-dev-webpack-plugin \
+       @ckeditor/ckeditor5-dev-utils \
+       postcss-loader@3 \
+       raw-loader@0.5.1
+   ```
+
+2. 配置`vue.config.js`（需要Vue-cli为3.x及以上）
+
+   ```js
+   const path = require( 'path' );
+   const CKEditorWebpackPlugin = require( '@ckeditor/ckeditor5-dev-webpack-plugin' );
+   const { styles } = require( '@ckeditor/ckeditor5-dev-utils' );
+   
+   module.exports = {
+       // The source of CKEditor is encapsulated in ES6 modules. By default, the code
+       // from the node_modules directory is not transpiled, so you must explicitly tell
+       // the CLI tools to transpile JavaScript files in all ckeditor5-* modules.
+       transpileDependencies: [
+           /ckeditor5-[^/\\]+[/\\]src[/\\].+\.js$/,
+       ],
+   
+       configureWebpack: {
+           plugins: [
+               // CKEditor needs its own plugin to be built using webpack.
+               new CKEditorWebpackPlugin( {
+                   // See https://ckeditor.com/docs/ckeditor5/latest/features/ui-language.html
+                   language: 'en',
+   
+                   // Append translations to the file matching the `app` name.
+                   translationsOutputFile: /app/
+               } )
+           ]
+       },
+   
+       // Vue CLI would normally use its own loader to load .svg and .css files, however:
+       //	1. The icons used by CKEditor must be loaded using raw-loader,
+       //	2. The CSS used by CKEditor must be transpiled using PostCSS to load properly.
+       chainWebpack: config => {
+           // (1.) To handle editor icons, get the default rule for *.svg files first:
+           const svgRule = config.module.rule( 'svg' );
+   
+           // Then you can either:
+           //
+           // * clear all loaders for existing 'svg' rule:
+           //
+           //		svgRule.uses.clear();
+           //
+           // * or exclude ckeditor directory from node_modules:
+           svgRule.exclude.add( path.join( __dirname, 'node_modules', '@ckeditor' ) );
+   
+           // Add an entry for *.svg files belonging to CKEditor. You can either:
+           //
+           // * modify the existing 'svg' rule:
+           //
+           //		svgRule.use( 'raw-loader' ).loader( 'raw-loader' );
+           //
+           // * or add a new one:
+           config.module
+               .rule( 'cke-svg' )
+               .test( /ckeditor5-[^/\\]+[/\\]theme[/\\]icons[/\\][^/\\]+\.svg$/ )
+               .use( 'raw-loader' )
+               .loader( 'raw-loader' );
+   
+           // (2.) Transpile the .css files imported by the editor using PostCSS.
+           // Make sure only the CSS belonging to ckeditor5-* packages is processed this way.
+           config.module
+               .rule( 'cke-css' )
+               .test( /ckeditor5-[^/\\]+[/\\].+\.css$/ )
+               .use( 'postcss-loader' )
+               .loader( 'postcss-loader' )
+               .tap( () => {
+                   return styles.getPostCssConfig( {
+                       themeImporter: {
+                           themePath: require.resolve( '@ckeditor/ckeditor5-theme-lark' ),
+                       },
+                       minify: true
+                   } );
+               } );
+       }
+   };
+   ```
+
+3. 完成基础依赖项配置后，就可以选择需要集成的功能模块了，需要注意的是，源码构建版本所需的基础包不是`@ckeditor/ckeditor5-build-classic`而是`@ckeditor/ckeditor5-editor-classic`，如果你不清楚自己需要哪些依赖包，那么可以去官方提供的[傻瓜式在线构建](https://ckeditor.com/ckeditor-5/online-builder/)那里完成在线构建并将打包后的包下载下来，根据其中`src/ckeditor.js`其中的配置项进行安装。
+
+4. 完成功能包下载后，就可以封装富文本组件了，这里同样不建议在全局已经导入`@ckeditor/ckeditor5-vue`，将其单独引入到一个组件中，完成对应的封装，其实就和上面快速集成的步骤一样，只不过需要修改一行代码，就是将`import ClassicEditor from "@ckeditor/ckeditor5-build-classic";`修改为`import ClassicEditor from "./editorCore.js";`，当然后面的路径你可以随意指定，主要是这个文件中需要填写什么，其实只需要参考在线构建包中的`src/ckeditor.js`即可，下面贴上我的`editorCore`配置，可以参考着进行配置：
+
+   ```js
+   /**
+    * CKEdit5 核心构建文件
+    * @license Copyright (c) 2014-2020, CKSource - Frederico Knabben. All rights reserved.
+    * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+    */
+   import ClassicEditor from "@ckeditor/ckeditor5-editor-classic/src/classiceditor.js";
+   import Alignment from "@ckeditor/ckeditor5-alignment/src/alignment.js";
+   import Autoformat from "@ckeditor/ckeditor5-autoformat/src/autoformat.js";
+   import Autosave from "@ckeditor/ckeditor5-autosave/src/autosave.js";
+   import BlockQuote from "@ckeditor/ckeditor5-block-quote/src/blockquote.js";
+   import Bold from "@ckeditor/ckeditor5-basic-styles/src/bold.js";
+   import CKFinder from "@ckeditor/ckeditor5-ckfinder/src/ckfinder.js";
+   import CKFinderUploadAdapter from "@ckeditor/ckeditor5-adapter-ckfinder/src/uploadadapter.js";
+   import Code from "@ckeditor/ckeditor5-basic-styles/src/code.js";
+   import CodeBlock from "@ckeditor/ckeditor5-code-block/src/codeblock.js";
+   import Essentials from "@ckeditor/ckeditor5-essentials/src/essentials.js";
+   import FontBackgroundColor from "@ckeditor/ckeditor5-font/src/fontbackgroundcolor.js";
+   import FontColor from "@ckeditor/ckeditor5-font/src/fontcolor.js";
+   import Heading from "@ckeditor/ckeditor5-heading/src/heading.js";
+   import HorizontalLine from "@ckeditor/ckeditor5-horizontal-line/src/horizontalline.js";
+   
+   import Image from "@ckeditor/ckeditor5-image/src/image.js";
+   import ImageCaption from "@ckeditor/ckeditor5-image/src/imagecaption.js";
+   import ImageInsert from "@ckeditor/ckeditor5-image/src/imageinsert.js";
+   import ImageResize from "@ckeditor/ckeditor5-image/src/imageresize.js";
+   import ImageStyle from "@ckeditor/ckeditor5-image/src/imagestyle.js";
+   import ImageToolbar from "@ckeditor/ckeditor5-image/src/imagetoolbar.js";
+   import ImageUpload from "@ckeditor/ckeditor5-image/src/imageupload.js";
+   
+   import Italic from "@ckeditor/ckeditor5-basic-styles/src/italic.js";
+   import Link from "@ckeditor/ckeditor5-link/src/link.js";
+   import List from "@ckeditor/ckeditor5-list/src/list.js";
+   import Markdown from "@ckeditor/ckeditor5-markdown-gfm/src/markdown.js";
+   import MediaEmbed from "@ckeditor/ckeditor5-media-embed/src/mediaembed.js";
+   import Paragraph from "@ckeditor/ckeditor5-paragraph/src/paragraph.js";
+   import PasteFromOffice from "@ckeditor/ckeditor5-paste-from-office/src/pastefromoffice";
+   import Strikethrough from "@ckeditor/ckeditor5-basic-styles/src/strikethrough.js";
+   import Table from "@ckeditor/ckeditor5-table/src/table.js";
+   import TableToolbar from "@ckeditor/ckeditor5-table/src/tabletoolbar.js";
+   import TextTransformation from "@ckeditor/ckeditor5-typing/src/texttransformation.js";
+   import Underline from "@ckeditor/ckeditor5-basic-styles/src/underline.js";
+   
+   // 创建自定义编辑器 继承自 基础编辑器包
+   class Editor extends ClassicEditor {}
+   
+   // 自定义功能插件
+   Editor.builtinPlugins = [
+     Alignment,
+     Autoformat,
+     Autosave,
+     BlockQuote,
+     Bold,
+     CKFinder,
+     CKFinderUploadAdapter,
+     Code,
+     CodeBlock,
+     Essentials,
+     FontBackgroundColor,
+     FontColor,
+     Heading,
+     HorizontalLine,
+     Image,
+     ImageCaption,
+     ImageInsert,
+     ImageResize,
+     ImageStyle,
+     ImageToolbar,
+     ImageUpload,
+     Italic,
+     Link,
+     List,
+     Markdown,
+     MediaEmbed,
+     Paragraph,
+     PasteFromOffice,
+     Strikethrough,
+     Table,
+     TableToolbar,
+     TextTransformation,
+     Underline,
+   ];
+   
+   // 默认配置
+   Editor.defaultConfig = {
+     // 工具栏展示列表
+     toolbar: [
+       "heading",
+       "|",
+       "bold",
+       "italic",
+       "underline",
+       "strikethrough",
+       "|",
+       "link",
+       "bulletedList",
+       "numberedList",
+       "|",
+       "imageUpload",
+       "imageInsert",
+       "|",
+       "blockQuote",
+       "horizontalLine",
+       "insertTable",
+       "mediaEmbed",
+       "|",
+       "code",
+       "codeBlock",
+       "|",
+       "fontColor",
+       "fontBackgroundColor",
+       "alignment",
+       "|",
+       "undo",
+       "redo",
+     ],
+     // ckfinder: {
+     //   uploadUrl: config.baseUrl + "/uploadImg" // 后端处理上传逻辑返回json数据,包括uploaded(选项true/false)和url两个字段,
+     // },
+     language: "zh-cn",
+     // 视频上传功能
+     mediaEmbed: {
+       providers: [
+         {
+           name: "myprovider",
+           url: [/^lizzy.*\.com.*\/media\/(\w+)/, /^www\.lizzy.*/, /^.*/],
+           html: (match) => {
+             //获取媒体url
+             const input = match["input"];
+             //console.log('input' + match['input']);
+             return (
+               '<div style="position: relative; padding-bottom: 100%; height: 0; padding-bottom: 70%;">' +
+               `<iframe src="${input}" ` +
+               'style="position: absolute; width: 100%; height: 100%; top: 0; left: 0;" ' +
+               'frameborder="0" allowtransparency="true" allow="encrypted-media">' +
+               "</iframe>" +
+               "</div>"
+             );
+           },
+         },
+       ],
+     },
+     image: {
+       toolbar: [
+         "imageTextAlternative",
+         "|",
+         "imageStyle:alignLeft",
+         "imageStyle:full",
+         "imageStyle:alignRight",
+       ],
+       styles: ["full", "alignLeft", "alignRight"],
+     },
+     table: {
+       contentToolbar: ["tableColumn", "tableRow", "mergeTableCells"],
+     },
+   };
+   
+   export default Editor;
+   
+   ```
+
+5. 最后一点无关紧要的建议，富文本组件可以使用以下结构，方便进行管理：
+
+   ```shell
+   - RichText  // 组件文件夹
+    -- core // 核心构建文件
+     --- ckeditor.js
+    -- index.vue  // 组件
+   ```
+
+   
+
+
+
+
 
 
 
