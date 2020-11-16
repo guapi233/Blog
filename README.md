@@ -57,6 +57,7 @@
 * [【23】Vue集成 CKEdit5](https://github.com/guapi233/Blog/issues/36)
 * [【24】textarea高度随内容变化](https://github.com/guapi233/Blog/issues/37)
 * [【25】JS解析文章内容生成目录结构](https://github.com/guapi233/Blog/issues/39)
+* [【26】Vue集成highlight.js](https://github.com/guapi233/Blog/issues/40)
 
 
 
