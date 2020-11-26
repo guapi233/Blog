@@ -16,6 +16,7 @@
 * [利用微队列突破递归限制](https://github.com/guapi233/Blog/issues/16)
 * [Vue-Router 路由守卫执行顺序](https://github.com/guapi233/Blog/issues/34)
 * [防抖节流](https://github.com/guapi233/Blog/issues/38)
+* [Node.js相互引用模块执行机制](https://github.com/guapi233/Blog/issues/43)
 
 
 
