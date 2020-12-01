@@ -60,7 +60,7 @@
 * [【25】JS解析文章内容生成目录结构](https://github.com/guapi233/Blog/issues/39)
 * [【26】Vue集成highlight.js](https://github.com/guapi233/Blog/issues/40)
 * [【27】contentEditable实现支持EMOJI的输入框](https://github.com/guapi233/Blog/issues/41)
-* [【28】Vue + Koa2 + Socket.io]([Vue + Koa2 + Socket.io · Issue #42 · guapi233/Blog (github.com)](https://github.com/guapi233/Blog/issues/42))
+* [【28】Vue + Koa2 + Socket.io](https://github.com/guapi233/Blog/issues/42)
 
 
 
