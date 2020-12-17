@@ -96,4 +96,5 @@
 * [【141】环形链表](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%90141%E3%80%91%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8)
 * [【155】最小栈](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%90155%E3%80%91%E6%9C%80%E5%B0%8F%E6%A0%88)
 * [【160】相交链表](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%90160%E3%80%91%E7%9B%B8%E4%BA%A4%E9%93%BE%E8%A1%A8)
+* [【189】旋转数组](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%90189%E3%80%91%E6%97%8B%E8%BD%AC%E6%95%B0%E7%BB%84)
 
