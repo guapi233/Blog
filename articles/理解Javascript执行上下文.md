@@ -4,7 +4,7 @@
 
 简而言之，执行上下文是评估和执行 JavaScript 代码的环境的抽象概念。每当 Javascript 代码在运行的时候，它都是在执行上下文中运行。个人理解的是执行上下文就是一个隐形的对象，这个对象上面记录了程序当前执行所依赖的环境因素。
 
-比起上下文，我觉得**环境**更容易让人理解，所以我在下文也会在合适的地方使用**环境**这个词语来代替上下文，因为任何一句代码执行，都需要一个执行时的环境，这个环境提供了一些代码执行所需的条件。就好像分析历史事件时，我们必不可少得要分析它所处的时代环境一样，对于代码也是如此。
+有些地方，比起上下文，我觉得**环境**这个词更容易让人理解，所以我在下文也会在合适的地方使用**环境**这个词语来代替上下文，因为任何一句代码执行，都需要一个执行时的环境，这个环境提供了一些代码执行所需的条件。就好像分析历史事件时，我们必不可少得要分析它所处的时代环境一样，对于代码也是如此。
 
 
 
@@ -27,6 +27,8 @@
   作用域链用于规定当前环境下的变量以什么样的方式及顺序进行查找
 
 * this
+
+  this用于记录调用方法的对象
 
 
 
@@ -423,4 +425,216 @@ checkscope();
 这样一条作用域链从构建到销毁的全过程就结束了，上面的过程虽然有好多细节上的不同，但是足够我们了解作用域链的大概了，比如为什么外面的代码没法访问函数中的变量，其实就是外面的执行上下文中的作用域链没有该函数的AO引用，理所当然也就拿不到AO中的变量引用了。
 
 **V8优化细节：V8为了优化闭包，不会在`[[Scopes]]`存储一条完整的作用域链，而是只会将在内部函数中使用到，也就是产生了闭包的变量引用存下来，其他的变量都会虽然外部函数的结束而销毁。换句话说，如果你没有利用闭包引用外部函数中的变量，那么无论你这个函数嵌套了多少层，它的作用域链总是只有自身的AO和全局对象。**
+
+
+
+## this
+
+`this`内容略，这里推荐一篇[文章](https://github.com/mqyqingfeng/Blog/issues/7)，作者[冴羽](https://github.com/mqyqingfeng) ，大大通过ECMA规范实现的角度，讲解了一些例如`Reference、MemberExpression`等规范内属性，ECMA正是对`MemberExpression`进行求值，判断结果是否为`Reference`
+
+类型，进行对应的this绑定。
+
+大大这种写法的动机是这样的一句函数调用`(false || foo.bar)()`，我一开始认为最终调用中的`this`为`foo`，但其实它内部是`window`，其实`(false || foo.bar)`部分就是`MemberExpression`，对其求值后结果不为`Reference`类型，所以`this`隐式处理（严格为`undefined`，非严格为`window`）。
+
+个人理解是`||`对`foo.bar`进行求值操作了，直接拿到了`bar()`的引用，包括`,`已经`=`这两个运算符，都对右侧操作对象进行了求值，而`(foo.bar)()`中的小括号运算符没有对其中内容运算的必要，所以`foo.bar`这条引用路径仍被保留，不过这些都是个人通过表象推测的，真正原理还是要通过规范来获取。
+
+
+
+## 捋一下
+
+还是下面这个例子，我们从头捋一下它们的执行上下文的构建过程（注意，下面的流程只是大概的过程，例如作用域链方面由于浏览器优化可能会与实际流程不同）：
+
+```js
+var scope = "global scope";
+function checkscope(){
+    var scope = "local scope";
+    function f(){
+        return scope;
+    }
+    return f();
+}
+checkscope();
+```
+
+```js
+var scope = "global scope";
+function checkscope(){
+    var scope = "local scope";
+    function f(){
+        return scope;
+    }
+    return f;
+}
+checkscope()();
+```
+
+
+
+### 第一个
+
+1. 首先创建全局执行上下文，将全局对象绑定到VO，并压入执行栈
+
+   ```js
+   ECStack = [
+       globalContext
+   ];
+   ```
+
+2. 遇到`function checkscope(){}`声明语句，记录该函数存在的词法作用域链
+
+   ```js
+   checkscope.[[Scopes]] = [
+       globalContext.VO
+   ]
+   ```
+
+3. 遇到`checkscope()`执行语句，压入执行栈并开始构建该函数的AO对象：
+
+   ```js
+   ECStack = [
+       checkscopeContext,
+       globalContext
+   ]
+   
+   checkscopeContext = {
+       AO: {
+           arguments: {
+               length: 0
+           },
+           scope: undefined,
+           f: reference to function f(){},
+       }
+   }
+   ```
+
+4. 构建AO的途中发现`function f(){}`声明语句，记录该函数的词法作用域链：
+
+   ```js
+   f.[[Scopes]] = [
+       checkscopeContext.AO,
+       globalContext.VO
+   ]
+   ```
+
+5. `checkscope`函数的AO构建完毕，开始通过`[[Scopes]]`连接作用域链：
+
+   ```js
+   checkscopeContext = {
+       AO: {
+           arguments: {
+               length: 0
+           },
+           scope: undefined,
+           f: reference to function f(){},
+       },
+       scope: [AO, [[Scopes]]] // [[Scopes]] = globalContext.VO
+   }
+   ```
+
+6. 开始执行`checkscope()`，`this`设置为`window`（非严格）,并根据其中的代码更新AO对象：
+
+   ```js
+   AO.scope: undefined => "local scope";
+   ```
+
+7. 执行到`return`部分发现`f()`执行语句，压入执行栈并开始构建该函数的AO对象：
+
+   ```js
+   ECStack = [
+       fContext,
+       checkscopeContext,
+       globalContext
+   ]
+   
+   fContext = {
+       AO: {
+           arguments: {
+               length: 0
+           },
+       }
+   }
+   ```
+
+8. `f`函数的AO构建完毕，开始通过`[[Scopes]]`连接作用域：
+
+   ```js
+   fContext = {
+       AO: {
+           arguments: {
+               length: 0
+           },
+       },
+       scope: [AO, [[Scopes]]] // [[Scopes]] = checkscopeContext.AO, globalContext.VO
+   }
+   ```
+
+9. `f`函数开始执行，`this`设置为`window`，执行`f`时发现自身的AO中没有`scope`变量，开始向上去`checkscopeContext.AO`中寻找，发现值为`local scope`，返回并结束函数执行，从执行栈中弹出
+
+   ```js
+   ECStack = [
+       checkscopeContext,
+       globalContext
+   ]
+   ```
+
+10. `f()`执行完毕，`checkscope`顺利返回结果，执行完毕并弹出执行栈：
+
+    ```js
+    ECStack = [
+        globalContext
+    ]
+    ```
+
+
+
+## 第二个
+
+第二段代码的执行过程和第一段代码的**前6步**相同，在**第7步**开始发生变化：
+
+7. 执行到返回语句，顺利将函数`f`返回，结束执行并弹出执行栈：
+
+   ```js
+   ECStack = [
+       globalContext
+   ]
+   ```
+
+8. 返回的`f`函数继续通过后面的`()`开始调用，压入执行栈并开始构建该函数的AO对象：
+
+   ```js
+   ECStack = [
+       fContext,
+       globalContext
+   ]
+   
+   fContext = {
+       AO: {
+           arguments: {
+               length: 0
+           },
+       }
+   }
+   ```
+
+9. `f`函数的AO构建完毕，开始通过`[[Scopes]]`连接作用域：
+
+   ```js
+   fContext = {
+       AO: {
+           arguments: {
+               length: 0
+           },
+       },
+       scope: [AO, [[Scopes]]] // [[Scopes]] = checkscopeContext.AO, globalContext.VO
+       // 这里的checkscopeContext.AO通过闭包的形式被引用着（其实只有scope被引用)
+   }
+   ```
+
+10. `f`函数开始执行，`this`设置为`window`，执行`f`时发现自身的AO中没有`scope`变量，开始向上去`checkscopeContext.AO`中寻找，发现值为`local scope`，返回并结束函数执行，从执行栈中弹出：
+
+    ```js
+    ECStack = [
+        globalContext
+    ]
+    ```
 
