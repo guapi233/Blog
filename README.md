@@ -17,6 +17,7 @@
 * [Vue-Router 路由守卫执行顺序](https://github.com/guapi233/Blog/issues/34)
 * [防抖节流](https://github.com/guapi233/Blog/issues/38)
 * [Node.js相互引用模块执行机制](https://github.com/guapi233/Blog/issues/43)
+* [理解JavaScript执行上下文](https://github.com/guapi233/Blog/issues/44)
 
 
 
