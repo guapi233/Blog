@@ -1,5 +1,9 @@
 # 理解JavaScript执行上下文
 
+一直对JavaScript执行的环境不太理解，只知道一些什么变量提升呀，闭包呀表面概念，一问为什么脑子当场就断开连接，所以在参考了大大的文章后，整理一份自己关于执行上下文的理解。
+
+
+
 ## 什么是执行上下文
 
 简而言之，执行上下文是评估和执行 JavaScript 代码的环境的抽象概念。每当 Javascript 代码在运行的时候，它都是在执行上下文中运行。个人理解的是执行上下文就是一个隐形的对象，这个对象上面记录了程序当前执行所依赖的环境因素。
@@ -11,8 +15,22 @@
 ## 执行上下文的分类
 
 * **全局执行上下文**：是程序最外层的执行环境，当程序开始执行之前，这个执行环境就会被创建，直到程序执行结束才会被释放，且一个程序**至多有一个**全局执行环境
+
 * **函数执行上下文**：每当遇到一个函数**调用**语句时，就会创建一个对应于该函数的执行环境，并且在该函数执行完毕后，该函数的执行环境就会被销毁，一个程序可以同时存在**多个**函数执行环境
-* **`eval`执行上下文**：`eval`函数能将一段字符串文本当做程序语句执行，其内部有独特的执行环境，这里不做讨论。
+
+* **`eval`执行上下文**：`eval`函数能将一段字符串文本当做程序语句执行，其内部有独特的执行环境（非严格模式下会直接作用于外部作用域，严格模式下则会创建一个内部作用域），这里不展开讨论
+
+  ```js
+  "use strict"; // 如果关闭严格模式会打印2
+  
+  var a = "aa";
+  eval("var a = 2");
+  console.log(a); // "aa"
+  ```
+
+  
+
+* **模块执行上下文**：存在与nodejs中，我们使用的`module，exports`就存在于此，这里不做讨论
 
 
 
@@ -638,3 +656,160 @@ checkscope()();
     ]
     ```
 
+
+
+## ES6之后的执行上下文
+
+在ES6，执行上下文内部结构发生了很大的变化，因为出现了有较强颠覆性的特性内容：`let/const/class`以及`block/caseBlock`作用域，`let/const`不能出现提升现象，并且还需要具备块级作用域的特性，这和上面执行上下文支持的`var`所具有的行为完全不同，这可怎么办呢？于是ECMA规范干脆变更了执行上下文的结构实现规范：
+
+新版执行上下文中，有两个重要的概念：
+
+* 词法环境：`LexicalEnvironment`
+* 变量环境：`VariableEnvironment`
+
+
+
+### 词法环境（LexicalEnvironment）
+
+词法环境由三个部分构成：
+
+* 环境记录`EnvironmentRecord`：用于存放变量和函数声明的地方，分为`object`和`declarative`两种类型，简单理解就是前者是全局上下文中的`ER`类型，后者是函数上下文中的`ER`类型
+* 外层引用`Outer`：提供了访问父词法环境的引用，全局上下文这里为`null`，简单理解就是原来的作用域链，不过现在只存父级的，是真正的一级一级向上找
+* this绑定`ThisBinding`：确定当前环境中this的指向
+
+速记：
+
+```
+词法环境分类 = 全局 / 函数 / 模块
+词法环境 = ER + outer + this
+ER分类 = declarative(DER) + object(OER)
+全局ER = DER + OER
+```
+
+
+
+### 变量环境（VariableEnvironment）
+
+在ES6前，声明变量都是通过`var`关键词声明的，在ES6中则提倡使用`let`和`const`来声明变量，为了兼容`var`的写法，于是使用变量环境来存储`var`声明的变量。
+
+> `var`关键词有个特性，会让**变量提升**，而通过`let/const`声明的变量则不会提升。为了区分这两种情况，就用不同的词法环境去区分。
+
+**变量环境本质上仍是词法环境**，但它只存储`var`声明的变量，这样在初始化变量时可以赋值为`undefined`。
+
+
+
+### 函数环境记录更新
+
+ECMA针对函数环境记录额外添加了一些内部属性，用于辨别不同的种类或不同调用方式的函数：
+
+| 内部属性             | Value                                         | 说明                                                         | 补充                                                         |
+| -------------------- | --------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| `[[ThisValue]]`      | `Any`                                         | 函数内调用`this`时引用的地址，我们常说的函数`this`绑定就是给这个内部属性赋值 |                                                              |
+| `[[ThisStatus]]`     | `"lexical" / "initialized" / "uninitialized"` | 若等于`lexical`，则为箭头函数，意味着`this`是空的；          | 强行`new`箭头函数会报错`TypeError`错误                       |
+| `[[FunctionObject]]` | `Object`                                      | 在这个对象中有两个属性`[[Call]]`和`[[Construct]]`，它们都是函数，如何赋值取决于如何调用函数 | 正常的函数调用赋值`[[Call]]`，而通过`new`或`super`调用函数则赋值`[[Construct]]` |
+| `[[HomeObject]]`     | `Object / undefined`                          | 如果该函数(非箭头函数)有`super`属性(子类)，则`[[HomeObject]]`指向父类构造函数 | 若你写过`extends`就知道我在说什么                            |
+| `[[NewTarget]]`      | `Object / undefined`                          | 如果是通过`[[Construct]]`方式调用的函数，那么`[[NewTarget]]`非空 | 在函数中可以通过`new.target`读取到这个内部属性。以此来判断函数是否通过`new`来调用的 |
+
+> `[ThisStatus]]`全称为`[[ThisBindingStatus]]`
+
+
+
+### 例子
+
+```js
+let a = 10;
+const b = 20;
+var sum;
+
+function add(e, f){
+    var d = 40;
+    return d + e + f 
+}
+
+let utils = {
+    add
+}
+
+sum = utils.add(a, b)
+```
+
+完整的执行上下文如下所示：
+
+```js
+GlobalExecutionContext = {
+    LexicalEnvironment: {
+        EnvironmentRecord: {
+            type: 'object',
+            add: <function>,
+            a: <uninitialized>,
+            b: <uninitialized>,
+            utils: <uninitialized>,
+        },
+        outer: null,
+        this: <globalObject>
+    },
+    VariableEnvironment: {
+        EnvironmentRecord: {
+            type: 'object',
+            sum: undefined
+        },
+        outer: null,
+        this: <globalObject>
+    },
+}
+
+// 当运行到函数add时才会创建函数执行上下文
+FunctionExecutionContext = {
+    LexicalEnvironment: {
+        EnvironmentRecord: {
+            type: 'declarative',
+            arguments: {0: 10, 1: 20, length: 2},
+            [[ThisValue]]: <utils>,
+            [[NewTarget]]: undefined,
+            ...
+        },
+        outer: <GlobalLexicalEnvironment>,
+        this: <utils>
+    },
+    VariableEnvironment: {
+        EnvironmentRecord: {
+            type: 'declarative',
+            d: undefined
+        },
+        outer: <GlobalLexicalEnvironment>,
+        this: <utils>
+    },
+}
+```
+
+执行上下文创建后，进入到执行环节，变量在执行过程中赋值、读取、再赋值等。直至程序运行结束。 我们注意到，在执行上下文创建时，变量`a、b`都是`<uninitialized>`的，而`sum`则被初始化为`undefined`。这就是为什么你可以在声明之前访问`var`定义的变量(变量提升)，而访问`let/const`定义的变量就会报引用错误的原因。
+
+
+
+### 函数与块级作用域
+
+我们上面提到除了通过`var`关键字声明的变量会存放在**变量环境**以外，其它的都会存放于**词法环境**，那么理论上`function `函数声明也会享有**词法环境**的特性——拥有块级作用域，但是如果你去支持ES6的浏览器进行尝试后会发现事实并非如此，块级作用域中的函数声明依然能被外面访问到，这是为什么呢？
+
+其实，在阮老师的[ES6入门](https://es6.ruanyifeng.com/#docs/let)中已经给出了答案：
+
+> 原来，如果改变了块级作用域内声明的函数的处理规则，显然会对老代码产生很大影响。为了减轻因此产生的不兼容问题，ES6 在[附录 B](http://www.ecma-international.org/ecma-262/6.0/index.html#sec-block-level-function-declarations-web-legacy-compatibility-semantics)里面规定，浏览器的实现可以不遵守上面的规定，有自己的[行为方式](http://stackoverflow.com/questions/31419897/what-are-the-precise-semantics-of-block-level-functions-in-es6)。
+>
+> - 允许在块级作用域内声明函数。
+> - 函数声明类似于`var`，即会提升到全局作用域或函数作用域的头部。
+> - 同时，函数声明还会提升到所在的块级作用域的头部。
+
+简单来说，就是因为老代码兼容问题，如果贸然修改`{}`内函数的行为，那么很可能会导致大批量老代码崩溃，因此才有的这种妥协做法，总之就是不要在`{}`书写函数声明，要写也要写函数表达式，避免不必要的麻烦。
+
+
+
+## 参考
+
+* [JavaScript深入之词法作用域和动态作用域](https://github.com/mqyqingfeng/Blog/issues/3)
+* [JavaScript深入之执行上下文栈](https://github.com/mqyqingfeng/Blog/issues/4)
+* [JavaScript深入之变量对象](https://github.com/mqyqingfeng/Blog/issues/5)
+* [JavaScript深入之作用域链](https://github.com/mqyqingfeng/Blog/issues/6)
+* [JavaScript深入之从ECMAScript规范解读this](https://github.com/mqyqingfeng/Blog/issues/7)
+* [JavaScript深入之执行上下文](https://github.com/mqyqingfeng/Blog/issues/8)
+* [[译] 理解 JavaScript 中的执行上下文和执行栈](https://juejin.cn/post/6844903682283143181#heading-7)
+* [JS夯实之执行上下文与词法环境](https://juejin.cn/post/6844904145372053511#heading-6)
+* [let和const命令](https://es6.ruanyifeng.com/#docs/let)
