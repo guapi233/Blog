@@ -3,7 +3,7 @@
  * @return {number[][]}
  */
 var threeSum = function (nums) {
-  nums = nums.sort((a, b) => a - b);
+  nums.sort((a, b) => a - b);
   const passed = [];
 
   const moveToR = (i) => {
