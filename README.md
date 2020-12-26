@@ -99,6 +99,7 @@
 * [【125】验证回文串](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%90125%E3%80%91%E9%AA%8C%E8%AF%81%E5%9B%9E%E6%96%87%E4%B8%B2)
 * [【136】只出现一次的数字](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%90136%E3%80%91%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E6%95%B0%E5%AD%97)
 * [【141】环形链表](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%90141%E3%80%91%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8)
+* [【148】排序链表](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%90148%E3%80%91%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8)
 * [【155】最小栈](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%90155%E3%80%91%E6%9C%80%E5%B0%8F%E6%A0%88)
 * [【160】相交链表](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%90160%E3%80%91%E7%9B%B8%E4%BA%A4%E9%93%BE%E8%A1%A8)
 * [【189】旋转数组](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%90189%E3%80%91%E6%97%8B%E8%BD%AC%E6%95%B0%E7%BB%84)
