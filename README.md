@@ -63,6 +63,7 @@
 * [【26】Vue集成highlight.js](https://github.com/guapi233/Blog/issues/40)
 * [【27】contentEditable实现支持EMOJI的输入框](https://github.com/guapi233/Blog/issues/41)
 * [【28】Vue + Koa2 + Socket.io](https://github.com/guapi233/Blog/issues/42)
+* [【29】Jest处理静态资源](https://github.com/guapi233/Blog/issues/45)
 
 
 
