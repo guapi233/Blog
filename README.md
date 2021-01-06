@@ -9,6 +9,7 @@
 ## 散文
 
 * [细微知识点速览](https://github.com/guapi233/Blog/blob/master/articles/%E7%9F%A5%E8%AF%86%E7%82%B9%E9%80%9F%E8%A7%88.md)
+* [报错集](https://github.com/guapi233/Blog/blob/master/articles/%E6%8A%A5%E9%94%99%E9%9B%86.md)
 * [模拟实现Promise/A+](https://github.com/guapi233/Blog/issues/1)
 * [深入浅出Event Loop](https://github.com/guapi233/Blog/issues/2)
 * [【造轮子】低配axios](https://github.com/guapi233/Blog/issues/3)
