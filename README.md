@@ -95,6 +95,7 @@
 * [【84】柱状图中最大的矩形](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%9084%E3%80%91%E6%9F%B1%E7%8A%B6%E5%9B%BE%E4%B8%AD%E6%9C%80%E5%A4%A7%E7%9A%84%E7%9F%A9%E5%BD%A2)
 * [【86】分隔链表](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%9086%E3%80%91%E5%88%86%E9%9A%94%E9%93%BE%E8%A1%A8)
 * [【88】合并两个有序数组](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%9088%E3%80%91%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84)
+* [【94】二叉树的中序遍历](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%9094%E3%80%91%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86)
 * [【100】相同的树](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%90100%E3%80%91%E7%9B%B8%E5%90%8C%E7%9A%84%E6%A0%91)
 * [【101】对称二叉树](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%90101%E3%80%91%E5%AF%B9%E7%A7%B0%E4%BA%8C%E5%8F%89%E6%A0%91)
 * [【104】二叉树的最大深度](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%90104%E3%80%91%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%A4%A7%E6%B7%B1%E5%BA%A6)
