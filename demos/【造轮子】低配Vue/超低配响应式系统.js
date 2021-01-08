@@ -73,3 +73,13 @@ new Watcher(() => {
 console.log(introduce);
 data.name = "Komikomi";
 console.log(introduce);
+
+// 新增属性测试（失败）---------------------------------------------
+data.newProp = 1;
+let newCount = data.newProp + 1;
+new Watcher(() => (newCount = data.newProp + 1));
+
+console.log(newCount);
+data.newProp = 2;
+// data.newProp无法变成响应式，因为通过Object.defineProperty的方式无法监听新增属性行为
+console.log(newCount);
