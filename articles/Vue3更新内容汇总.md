@@ -98,3 +98,79 @@
 
 用于将一个元素传送至另一个指定元素下，不知道能干嘛
 
+
+
+
+
+## 风格调整&api变化
+
+* Vue3中，许多功能不再从`this`身上直接获取，而是通过模块引入的方式，这使得`Tree Shaking`更加方便
+
+* 对`render`函数的第二个配置参数，进行了拍平，具体变化如下所示：
+
+  ```js
+  // Vue2
+  render(h) {
+      return h("div", {
+          attrs: {
+              id: "foo"
+          },
+          on: {
+              click: this.onClick
+          }
+      }, ["hello", ....其他子节点])
+  }
+  
+  // Vue3
+  import { h } from "vue"; // 全局引入可以让你任意得拆分render()
+  render() {
+      return h("div", {
+          id: "foo",
+          onClick: this.onClick
+      }, ["hello", ....其他子节点])
+  }
+  ```
+
+
+
+
+
+## render函数应用
+
+```js
+<script
+    crossorigin="anonymous"
+    integrity="sha512-0S1Z4iGuXAsDTvbchysUduts51Ef0IXJnNeNsa9D7W+cotLVA/TJaN9xnipOLL+0Y2lkH+7Xbd8qJB1RIvEleQ=="
+    src="https://lib.baomitu.com/vue/3.0.5/vue.global.js"
+  ></script>
+  <script>
+    const { h, createApp } = Vue;
+
+    const Stack = {
+      props: {
+        size: Number,
+      },
+      render() {
+        const slot = this.$slots.default ? this.$slots.default() : [];
+
+        return h(
+          "div",
+          { class: "stack" },
+          slot.map((child) => {
+            return h(child, { class: `mt-${this.$props.size}` });
+          })
+        );
+      },
+    };
+
+    createApp({ components: { Stack } }).mount("#app");
+ </script>
+```
+
+
+
+## Vue3渲染优化
+
+* 静态节点提升，一旦被提升，这个节点就不会再变了，后面的更新会重用提升上去的储存
+* 函数缓存，会对绑定的函数进行缓存，创建一个指针一直指向最新的函数，如果函数发生变化，更新该指针即可，而不需要对Vnode有所变更
+* 主要的优化手段，在`compile`阶段向**模板**（注意，直接使用VDOM API不会享受到这种优化）打上许多`flag`，比如说就专门每个Vnode上就有一个专门用于存储动态子节点的数组，里面的元素都是存在变化可能的。这些`flag`来给予`compiler`更多的提示信息，告诉它什么是可能会变化的，什么是一定不会变化的，从而更能针对性的生成`render`函数，减少更新的工作量。
