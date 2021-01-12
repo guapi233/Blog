@@ -91,6 +91,7 @@
 * [【42】接雨水](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%9042%E3%80%91%E6%8E%A5%E6%B0%B4%E6%BB%B4)
 * [【49】字母异位词分组](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%9049%E3%80%91%E5%AD%97%E6%AF%8D%E5%BC%82%E4%BD%8D%E8%AF%8D%E5%88%86%E7%BB%84)
 * [【50】Pow(x, n)](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%9050%E3%80%91Pow(x%2C%20n))
+* [【51】N皇后](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%9051%E3%80%91N%E7%9A%87%E5%90%8E)
 * [【53】最大子序和](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%9035%E3%80%91%E6%90%9C%E7%B4%A2%E6%8F%92%E5%85%A5%E4%BD%8D%E7%BD%AE)
 * [【58】最后一个单词的长度](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%9058%E3%80%91%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E5%8D%95%E8%AF%8D%E7%9A%84%E9%95%BF%E5%BA%A6)
 * [【66】加一](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%9066%E3%80%91%E5%8A%A0%E4%B8%80)
