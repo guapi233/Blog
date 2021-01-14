@@ -110,6 +110,7 @@
 * [【112】路径总和](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%90112%E3%80%91%20%E8%B7%AF%E5%BE%84%E6%80%BB%E5%92%8C)
 * [【121】买卖股票的最佳时机](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%90121%E3%80%91%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA)
 * [【125】验证回文串](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%90125%E3%80%91%E9%AA%8C%E8%AF%81%E5%9B%9E%E6%96%87%E4%B8%B2)
+* [【129】求根到叶子节点数字之和](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%90129%E3%80%91%E6%B1%82%E6%A0%B9%E5%88%B0%E5%8F%B6%E5%AD%90%E8%8A%82%E7%82%B9%E6%95%B0%E5%AD%97%E4%B9%8B%E5%92%8C)
 * [【136】只出现一次的数字](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%90136%E3%80%91%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E6%95%B0%E5%AD%97)
 * [【141】环形链表](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%90141%E3%80%91%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8)
 * [【144】二叉树的前序遍历](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%90144%E3%80%91%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%89%8D%E5%BA%8F%E9%81%8D%E5%8E%86)
