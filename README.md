@@ -128,6 +128,7 @@
 * [【344】反转字符串](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%90344%E3%80%91%E5%8F%8D%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2)
 * [【349】两个数组的交集](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%90349%E3%80%91%E4%B8%A4%E4%B8%AA%E6%95%B0%E7%BB%84%E7%9A%84%E4%BA%A4%E9%9B%86)
 * [【429】N叉树的层序遍历](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%90429%E3%80%91N%E5%8F%89%E6%A0%91%E7%9A%84%E5%B1%82%E5%BA%8F%E9%81%8D%E5%8E%86)
+* [【455】分发饼干](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%90455%E3%80%91%E5%88%86%E5%8F%91%E9%A5%BC%E5%B9%B2)
 * [【589】N叉树的前序遍历](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%90589%E3%80%91N%E5%8F%89%E6%A0%91%E7%9A%84%E5%89%8D%E5%BA%8F%E9%81%8D%E5%8E%86)
 * [【590】N叉树的后序遍历](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%90590%E3%80%91N%E5%8F%89%E6%A0%91%E7%9A%84%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86)
 * [【605】种花问题](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%90605%E3%80%91%E7%A7%8D%E8%8A%B1%E9%97%AE%E9%A2%98)
