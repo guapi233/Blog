@@ -96,6 +96,7 @@
 * [【55】跳跃游戏](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%9055%E3%80%91%E8%B7%B3%E8%B7%83%E6%B8%B8%E6%88%8F)
 * [【58】最后一个单词的长度](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%9058%E3%80%91%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E5%8D%95%E8%AF%8D%E7%9A%84%E9%95%BF%E5%BA%A6)
 * [【66】加一](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%9066%E3%80%91%E5%8A%A0%E4%B8%80)
+* [【69】x的平方根](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%9069%E3%80%91x%E7%9A%84%E5%B9%B3%E6%96%B9%E6%A0%B9)
 * [【70】爬楼梯](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%9070%E3%80%91%E7%88%AC%E6%A5%BC%E6%A2%AF)
 * [【78】子集](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%9078%E3%80%91%E5%AD%90%E9%9B%86)
 * [【83】删除排序链表中的重复元素](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%9083%E3%80%91%E5%88%A0%E9%99%A4%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0)
