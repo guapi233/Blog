@@ -142,4 +142,5 @@
 * [【674】最长连续递增序列](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%90674%E3%80%91%E6%9C%80%E9%95%BF%E8%BF%9E%E7%BB%AD%E9%80%92%E5%A2%9E%E5%BA%8F%E5%88%97)
 * [【830】较大分组的位置](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%90830%E3%80%91%E8%BE%83%E5%A4%A7%E5%88%86%E7%BB%84%E7%9A%84%E4%BD%8D%E7%BD%AE)
 * [【860】柠檬水找零](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%90860%E3%80%91%E6%9F%A0%E6%AA%AC%E6%B0%B4%E6%89%BE%E9%9B%B6)
+* [【1143】最长公共子序列](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%901143%E3%80%91%E6%9C%80%E9%95%BF%E5%85%AC%E5%85%B1%E5%AD%90%E5%BA%8F%E5%88%97)
 
