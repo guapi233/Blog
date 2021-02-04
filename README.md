@@ -102,6 +102,7 @@
 * [【69】x的平方根](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%9069%E3%80%91x%E7%9A%84%E5%B9%B3%E6%96%B9%E6%A0%B9)
 * [【70】爬楼梯](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%9070%E3%80%91%E7%88%AC%E6%A5%BC%E6%A2%AF)
 * [【78】子集](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%9078%E3%80%91%E5%AD%90%E9%9B%86)
+* [【79】单词搜索](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%9079%E3%80%91%E5%8D%95%E8%AF%8D%E6%90%9C%E7%B4%A2)
 * [【83】删除排序链表中的重复元素](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%9083%E3%80%91%E5%88%A0%E9%99%A4%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0)
 * [【84】柱状图中最大的矩形](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%9084%E3%80%91%E6%9F%B1%E7%8A%B6%E5%9B%BE%E4%B8%AD%E6%9C%80%E5%A4%A7%E7%9A%84%E7%9F%A9%E5%BD%A2)
 * [【86】分隔链表](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%9086%E3%80%91%E5%88%86%E9%9A%94%E9%93%BE%E8%A1%A8)
