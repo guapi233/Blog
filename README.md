@@ -147,6 +147,7 @@
 * [【605】种花问题](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%90605%E3%80%91%E7%A7%8D%E8%8A%B1%E9%97%AE%E9%A2%98)
 * [【628】三个数的最大乘积](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%90628%E3%80%91%E4%B8%89%E4%B8%AA%E6%95%B0%E7%9A%84%E6%9C%80%E5%A4%A7%E4%B9%98%E7%A7%AF)
 * [【641】设计循环双端队列](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%90641%E3%80%91%E8%AE%BE%E8%AE%A1%E5%BE%AA%E7%8E%AF%E5%8F%8C%E7%AB%AF%E9%98%9F%E5%88%97)
+* [【643】子数组最大平均数 I](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%90643%E3%80%91%E5%AD%90%E6%95%B0%E7%BB%84%E6%9C%80%E5%A4%A7%E5%B9%B3%E5%9D%87%E6%95%B0%20I)
 * [【674】最长连续递增序列](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%90674%E3%80%91%E6%9C%80%E9%95%BF%E8%BF%9E%E7%BB%AD%E9%80%92%E5%A2%9E%E5%BA%8F%E5%88%97)
 * [【724】寻找数组的中心索引](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%90724%E3%80%91%E5%AF%BB%E6%89%BE%E6%95%B0%E7%BB%84%E7%9A%84%E4%B8%AD%E5%BF%83%E7%B4%A2%E5%BC%95)
 * [【830】较大分组的位置](https://github.com/guapi233/Blog/tree/master/algorithms/%E3%80%90830%E3%80%91%E8%BE%83%E5%A4%A7%E5%88%86%E7%BB%84%E7%9A%84%E4%BD%8D%E7%BD%AE)
