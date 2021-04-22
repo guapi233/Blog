@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #canvas {
+            display: block;
+            margin: 200px auto;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas" width="1800" height="1000"></canvas>
+</body>
+<script>
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
+
+    // 矩形—————————————————————————————————————————————
+    ctx.fillStyle = "#000";
+    ctx.fillRect(20, 20, 100, 100);
+    ctx.clearRect(40, 40, 60, 60);
+    ctx.strokeStyle = "red";
+    ctx.strokeRect(50, 50, 40, 40);
+
+    // 三角——————————————————————————————————————————————
+    ctx.beginPath();
+    ctx.moveTo(200, 70);
+    ctx.lineTo(280, 70);
+    ctx.lineTo(200, 150);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.strokeStyle = "#000";
+    ctx.moveTo(300, 90);
+    ctx.lineTo(300, 170);
+    ctx.lineTo(220, 170);
+    ctx.closePath();
+    ctx.stroke();
+    
+    // 圆————————————————————————————————————————————————
+    ctx.beginPath();
+    ctx.lineWidth = 10;
+    ctx.arc(500, 140, 120, 0, Math.PI * 2);
+    ctx.stroke();
+
+    // 笑脸——————————————————————————————————————————————
+    ctx.lineWidth = 5;
+    ctx.beginPath();
+    ctx.arc(200, 400, 150, 0, Math.PI * 2);
+    ctx.moveTo(180, 350);
+    ctx.arc(150, 350, 30, 0, Math.PI * 2);
+    ctx.moveTo(280, 350);
+    ctx.arc(250, 350, 30, 0, Math.PI * 2);
+    ctx.moveTo(300, 400);
+    ctx.arc(200, 400, 100, 0, Math.PI);
+    ctx.stroke();
+
+    // 线性渐变——————————————————————————————————————————————
+    const lingrad = ctx.createLinearGradient(400, 400, 500, 500);
+    lingrad.addColorStop(0, "red");
+    lingrad.addColorStop(0.5, "blue");
+    lingrad.addColorStop(1, "green");
+    ctx.fillStyle = lingrad;
+    ctx.fillRect(400, 400, 100, 100);
+
+    // 径向渐变———————————————————————————————————————————————
+    const radgrad = ctx.createRadialGradient(600, 400, 50, 600, 400, 100);
+    radgrad.addColorStop(0, "red");
+    radgrad.addColorStop(0.9, "blue");
+    radgrad.addColorStop(1, "green");
+    ctx.fillStyle = radgrad;
+    ctx.fillRect(500, 300, 200, 200);
+
+    // 图片———————————————————————————————————————————————————
+    const img = new Image();
+    img.src = "image.jpg";
+    img.onload = () => {
+        const pat = ctx.createPattern(img, "repeat");
+        ctx.fillStyle = pat;
+        ctx.fillRect(900, 0, 370, 600);
+    
+        ctx.drawImage(img, 1500, 100, 42, 60);
+        ctx.drawImage(img, 100, 350, 220, 350, 1500, 200, 100, 140);
+    
+        // 裁切——————————————————————————————————————————————————
+        ctx.beginPath();
+        ctx.arc(100, 800, 50, 0, Math.PI * 2);
+        ctx.clip();
+        ctx.drawImage(img, 0, 700);
+    }
+
+    // 字体——————————————————————————————————————————————————
+    ctx.font = "normal normal bold 30px arial";
+    ctx.fillStyle = "#000";
+    ctx.fillText("Hello World", 1500, 30);
+
+</script>
+</html>
