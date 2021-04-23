@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #canvas {
+            display: block;
+            margin: 200px auto;
+            border: 1px solid;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas" width="800" height="600"></canvas>
+</body>
+<script>
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
+
+    let x = 0, y = 0, w = 100, h = 100;
+    let dx = 5, dy = 5;
+
+    const getFrame = () => {
+        requestAnimationFrame(() => {
+            // 1. 清除图像
+            console.log(x, y);
+            ctx.clearRect(x, y, w, h);
+
+            // 2. 更新位置
+            // 2.1 判断是否碰壁
+            if (x + dx <= 0 || x + w + dx >= 800) {
+                dx *= -1;
+            }
+            if (y + dy <= 0 || y + h + dy >= 600) {
+                dy *= -1;
+            }
+
+            // 2.2 更新位置
+            x += dx;
+            y += dy;
+
+            // 3.绘制图像
+            ctx.fillRect(x, y, w, h);
+            
+            getFrame();
+        })
+    };
+
+    getFrame();
+</script>
+</html>

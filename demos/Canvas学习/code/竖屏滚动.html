@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #canvas {
+            display: block;
+            margin: 200px auto;
+            border: 1px solid;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas" width="425" height="608"></canvas>
+</body>
+<script>
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
+
+    let y = 0;
+    function bgMove() {
+        ctx.save();
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.translate(0, y);
+        ctx.drawImage(img, 0, 0);
+        ctx.drawImage(img, 0, canvas.height * -1);
+
+        y++;
+
+        if (y >= canvas.height) {
+            y = 0;
+        }
+
+        ctx.restore();
+
+        requestAnimationFrame(bgMove);
+    }
+
+    const img = new Image();
+    img.src = "image.jpg";
+    img.onload = () => {
+        bgMove();
+
+
+    }
+</script>
+</html>
