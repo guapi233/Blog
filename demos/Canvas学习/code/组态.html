@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #canvas {
+            display: block;
+            margin: 50px auto;
+            border: 1px solid;
+        }
+
+        .items-wrap  {
+            display: inline-block;
+            border: 1px solid;
+            width: 300px;
+            height: 300px;
+            display: flex;
+        }
+
+        .rect {
+            width: 100px;
+            height: 100px;
+            background-color: #999;
+            margin-right: 10px;
+        }
+
+        .circle {
+            width: 100px;
+            height: 100px;
+            background-color: #999;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <div class="items-wrap">
+        <div class="rect"></div>
+        <div class="circle"></div>
+    </div>
+    <canvas id="canvas" width="800" height="600"></canvas>
+</body>
+<script>
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
+    const sequence = { data: [] };
+
+    const items = [
+        {
+            name: "rect",
+            w: 100,
+            h: 100,
+            backgroundColor: "#999"
+        },
+        {
+            name: "circle",
+            w: 100,
+            h: 100,
+            backgroundColor: "#999"
+        }
+    ];
+
+    const itemDoms = document.querySelectorAll(".items-wrap div");
+    [...itemDoms].forEach((item, index) => {
+        const graph = items[index];
+
+        item.onmousedown = (ev) => {
+            let ele = null;
+            const dx = ev.offsetX, dy = ev.offsetY;
+
+            document.onmousemove = (e) => {
+                if (!ele) ele = createMovingGraph(graph);
+                
+                ele.style.left = e.clientX - dx + "px";
+                ele.style.top = e.clientY - dy + "px";
+            }
+
+            document.onmouseup = (e) => {
+                if (document.onmousemove) {
+                    document.body.removeChild(ele);
+                    ele = null;
+
+                    e.dx = dx, e.dy = dy;
+                    drawGraph(graph, e);
+                }
+
+                document.onmousemove = null;
+            }
+        };
+    });
+
+    function createMovingGraph(props, e) {
+        const ele = document.createElement("div");
+        ele.style.width = props.w + "px";
+        ele.style.height = props.h + "px";
+        ele.style.backgroundColor = props.backgroundColor;
+        if (props.name === "circle") {
+            ele.style.borderRadius = "50%";
+        }
+        ele.style.opacity = 0.3;
+        ele.style.position = "fixed";
+
+        document.body.appendChild(ele);
+        return ele;
+    }
+
+    function drawGraph(props, e) {
+        if (!e || !props) return;
+        sequence.data.push(props);
+        const { dx, dy, pageX, pageY } = e;
+
+        console.log(e)
+
+        if (props.name === "rect") {
+            ctx.fillStyle = props.backgroundColor;
+            ctx.fillRect(pageX - canvas.offsetLeft - dx, pageY - canvas.offsetTop - dy, props.w, props.h);
+        } else if (props.name === "circle") {
+            ctx.beginPath();
+            ctx.fillStyle = props.backgroundColor;
+            ctx.arc(pageX - canvas.offsetLeft - dx, pageY - canvas.offsetTop - dy, props.w / 2, 0, 2 * Math.PI);
+            ctx.fill();
+        }
+    }
+</script>
+</html>
